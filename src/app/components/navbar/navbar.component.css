@@ -1,0 +1,24 @@
+
+.navbar-nav .nav-link.active, 
+.navbar-nav .nav-link.show{
+    color: #FFFFFF;
+    font-weight: bold;
+}
+.nav-link{
+    color:#FFFFFF;
+    font-family: "Poppins", sans-serif;
+}
+.navbar{
+    background-color: red;
+}
+
+.navbar-brand.logo{
+    font-family: "Poppins", sans-serif;
+    color: #FFFFFF;
+    font-weight: bolder;
+    margin: 0;
+}
+.navbar-toggler{
+    border: none;
+    box-shadow: none;
+}

@@ -1,0 +1,33 @@
+.home{
+    background-color: grey;
+    position: relative;
+}
+.home_shadow{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgb(0,0,1);
+    background: linear-gradient(360deg, rgba(0, 0, 1, 1) 0%, rgba(3, 4, 13, -6.24326) 90%);
+    z-index: 1;
+    height: 40%;
+}
+.home_text_swiper {
+    position: absolute;
+    bottom: 10%;
+    left: 0;
+    max-width: 600px;
+    color: #FFFFFF;
+    text-decoration: none;
+    z-index: 9;
+    padding: 20px;
+}
+@media (min-width: 768px) {
+    .home_text_swiper {
+        left: 25%;
+        padding: 0;
+    }
+}
+
+.home_text_swiper h1{
+    font-size: 4rem;
+}

@@ -1,1 +1,30 @@
-<p>home works!</p>
+<section class="vh-100 home">
+  <swiper-container
+    loop="true"
+    slides-per-view="1"
+    speed="1000"
+    autoplay="true"
+    pagination="true"
+    pagination-clickable="true"
+    class="h-100"
+    style="
+      --swiper-pagination-color: #fff;
+      --swiper-pagination-bullet-inactive-color: #fff;
+    ">
+    @for(item of items; track items ) {  
+    <swiper-slide class="position-relative">
+      <a href="#" class="home_text_swiper">
+        <span class="badge bg-danger">Futbol</span>
+        <h1>{{ item.title }}</h1>
+        <p>
+          Lorem Ipsum es simplemente el texto de relleno de las imprentas y
+          archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de
+          las industrias desde el año 1500
+        </p>
+      </a>
+      <img src="{{ item.image }}" alt="{{ item.title }}" />
+      <div class="home_shadow"></div>
+    </swiper-slide>
+    }
+  </swiper-container>
+</section>
