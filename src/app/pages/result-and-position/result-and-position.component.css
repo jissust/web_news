@@ -1,22 +1,3 @@
 .result-and-position{
     padding: 40px 0;
 }
-.result-and-position-card {
-    text-align: center;
-    font-size: 1rem;
-    padding: 20px 0;
-}
-.result-and-position-card-text {
-    font-size: 0.9rem;
-}
-.result-and-position-card h1 {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-.result-and-position-card h2 {
-    font-size: 1rem;
-}
-.result-and-position-card-logo{
-    max-width: 80px; 
-    padding:10px;
-}
