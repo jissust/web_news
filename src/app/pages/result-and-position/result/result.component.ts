@@ -15,7 +15,4 @@ export class ResultComponent implements OnInit {
       
   }
 
-  constructor(){
-  console.log(this.result);  
-  }
 }

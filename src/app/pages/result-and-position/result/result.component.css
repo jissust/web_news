@@ -12,6 +12,7 @@
 }
 .result-and-position-card h2 {
     font-size: 1rem;
+    font-weight: bold;
 }
 .result-and-position-card-logo{
     max-width: 80px; 

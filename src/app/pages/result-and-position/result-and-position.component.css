@@ -1,3 +1,24 @@
 .result-and-position{
     padding: 40px 0;
 }
+
+/** position */
+.card-position{
+    padding:20px 0;
+    text-align: center;
+}
+.card-position h1,
+.card-position .h1{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.card-position h2,
+.card-position .h2{
+    font-size: 1rem;
+    font-weight: bold;
+}
+.card-position .table thead tr th,
+.card-position .table tbody th,
+.card-position .table tbody td{
+    padding: 0;
+}

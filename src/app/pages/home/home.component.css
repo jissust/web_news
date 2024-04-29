@@ -1,6 +1,12 @@
 .home{
     background-color: grey;
     position: relative;
+    height: 60vh;
+}
+@media (min-width: 768px) {
+    .home{
+        height: 65vh;
+    }
 }
 .home_shadow{
     position: absolute;
