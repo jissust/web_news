@@ -9,7 +9,7 @@
     font-family: "Poppins", sans-serif;
 }
 .navbar{
-    background-color: red;
+    background-color: #09488c;
 }
 
 .navbar-brand.logo{
@@ -17,6 +17,9 @@
     color: #FFFFFF;
     font-weight: bolder;
     margin: 0;
+}
+.logo img{
+    max-width: 40px;
 }
 .navbar-toggler{
     border: none;
