@@ -1,0 +1,44 @@
+.outstanding-news{
+    font-family: 'Poppins', sans-serif;
+}
+.outstanding-news .item-news-container-image{
+    height: 200px;
+    overflow: hidden;
+    padding: 5px;
+}
+.outstanding-news .item-news-container-image img{
+    width: 100%;
+    object-fit: cover;
+}
+.outstanding-news .item-news{
+    background-color: #09488c;
+}
+.outstanding-news .item-news:hover{
+    cursor: pointer;
+}
+.outstanding-news .item-news img{
+    transition: scale 0.5s ease;
+}
+.outstanding-news .item-news:hover img{
+    scale: 1.2;
+    transition: scale 0.5s ease;
+}
+.item-news-container-text{
+    width: 100%;
+    background-color: #09488c;
+    padding: 15px;
+    color: #FFF;
+}
+.item-news-container-text .item-news-title{
+    font-size: 1.2rem;
+    font-weight: 900;
+    padding: 5px 0;
+}
+.item-news-container-text .item-news-description{
+    font-size: 0.9rem;
+}
+.view-all{
+    text-decoration: none;
+    color: #000;
+    font-weight: 900;
+}
