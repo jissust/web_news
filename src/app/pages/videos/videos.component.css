@@ -1,0 +1,12 @@
+.videos{
+    background-color: #09488c;
+    color:#FFF;
+    padding: 50px 0;
+}
+.videos .view-all{
+    color: #FFF;
+    text-decoration: none;
+}
+iframe{
+    width: 100%;
+}
