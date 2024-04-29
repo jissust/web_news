@@ -1,122 +1,21 @@
 <section id="outstanding-news" class="outstanding-news">
   <div class="container">
     <div class="row">
-        <div class="col-12 col-md-6">
-            <h1>Noticias</h1>
-        </div>
-        <div class="col-12 col-md-6 d-flex justify-content-end align-items-center">
-            <a href="#" class="view-all">ver todos</a>
-        </div>
+      <div class="col-12 col-md-6">
+        <h1>Noticias</h1>
+      </div>
+      <div
+        class="col-12 col-md-6 d-flex justify-content-end align-items-center"
+      >
+        <a href="#" class="view-all">ver todos</a>
+      </div>
     </div>
     <div class="row">
+      @for(item of items; track items ) {
       <div class="col-12 col-md-4 mb-4">
-        <div class="item-news">
-          <div class="item-news-container-image">
-            <img src="{{ item.url_image }}" alt="{{ item.title }}" />
-          </div>
-          <div class="item-news-container-text">
-            <span class="badge bg-danger">
-              {{ item.category }}
-            </span>
-            <div class="item-news-title">
-              {{ item.title }}
-            </div>
-            <div class="item-news-description">
-              {{ item.description }}
-            </div>
-          </div>
-        </div>
+        <app-item-news [items]="item" />
       </div>
-      <div class="col-12 col-md-4 mb-4">
-        <div class="item-news">
-          <div class="item-news-container-image">
-            <img src="{{ item.url_image }}" alt="" />
-          </div>
-          <div class="item-news-container-text">
-            <span class="badge bg-danger">
-              {{ item.category }}
-            </span>
-            <div class="item-news-title">
-              {{ item.title }}
-            </div>
-            <div class="item-news-description">
-              {{ item.description }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-4 mb-4">
-        <div class="item-news">
-          <div class="item-news-container-image">
-            <img src="{{ item.url_image }}" alt="" />
-          </div>
-          <div class="item-news-container-text">
-            <span class="badge bg-danger">
-              {{ item.category }}
-            </span>
-            <div class="item-news-title">
-              {{ item.title }}
-            </div>
-            <div class="item-news-description">
-              {{ item.description }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-4 mb-4">
-        <div class="item-news">
-          <div class="item-news-container-image">
-            <img src="{{ item.url_image }}" alt="" />
-          </div>
-          <div class="item-news-container-text">
-            <span class="badge bg-danger">
-              {{ item.category }}
-            </span>
-            <div class="item-news-title">
-              {{ item.title }}
-            </div>
-            <div class="item-news-description">
-              {{ item.description }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-4 mb-4">
-        <div class="item-news">
-          <div class="item-news-container-image">
-            <img src="{{ item.url_image }}" alt="" />
-          </div>
-          <div class="item-news-container-text">
-            <span class="badge bg-danger">
-              {{ item.category }}
-            </span>
-            <div class="item-news-title">
-              {{ item.title }}
-            </div>
-            <div class="item-news-description">
-              {{ item.description }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-4 mb-4">
-        <div class="item-news">
-          <div class="item-news-container-image">
-            <img src="{{ item.url_image }}" alt="" />
-          </div>
-          <div class="item-news-container-text">
-            <span class="badge bg-danger">
-              {{ item.category }}
-            </span>
-            <div class="item-news-title">
-              {{ item.title }}
-            </div>
-            <div class="item-news-description">
-              {{ item.description }}
-            </div>
-          </div>
-        </div>
-      </div>
+      }
     </div>
   </div>
 </section>

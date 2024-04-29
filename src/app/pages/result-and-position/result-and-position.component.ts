@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ResultComponent } from './result/result.component';
+import { ResultComponent } from './components/result/result.component';
 
 @Component({
   selector: 'app-result-and-position',
