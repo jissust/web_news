@@ -1,1 +1,14 @@
-<p>notices works!</p>
+<section id="notices" class="notices">
+    <div class="container">
+        <div class="row">
+            <h1>Noticias </h1>
+        </div>
+        <div class="row">
+            @for(newNotice of news; track news ) {
+            <div class="col-12 col-md-4 mb-3">
+                <app-item-news [items]="newNotice" />
+            </div>
+            }
+        </div>
+    </div>
+</section>

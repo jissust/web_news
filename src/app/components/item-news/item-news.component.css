@@ -1,3 +1,6 @@
+.item-news a{
+    text-decoration: none;
+}
 .item-news-container-image{
     height: 200px;
     overflow: hidden;
