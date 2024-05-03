@@ -13,7 +13,7 @@
     ">
     @for(item of items; track items ) {  
     <swiper-slide class="position-relative">
-      <a href="#" class="home_text_swiper">
+      <a href="/notice/{{item._id}}" class="home_text_swiper">
         <span class="badge bg-danger">Futbol</span>
         <h1>{{ item.title }}</h1>
         <p>
@@ -22,7 +22,7 @@
           las industrias desde el año 1500
         </p>
       </a>
-      <img src="{{ item.image }}" alt="{{ item.title }}" />
+      <img src="{{ item.url_image }}" alt="{{ item.title }}" />
       <div class="home_shadow"></div>
     </swiper-slide>
     }

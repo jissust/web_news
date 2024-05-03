@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NewService } from '../../services/new.service';
+import { NoticeService } from '../../services/notice.service';
 import { ItemNewsComponent } from '../../components/item-news/item-news.component';
 import { NoticeComponent } from './components/notice/notice.component';
 
@@ -12,11 +12,11 @@ import { NoticeComponent } from './components/notice/notice.component';
 })
 export class NoticesComponent implements OnInit{
   public news!: any;
-  constructor(private _new: NewService){
+  constructor(private _notice: NoticeService){
 
   }
   ngOnInit(): void {
-      this.news = this._new.getItems();
-      console.log(this._new);
+      this.news = this._notice.getItems();
+      console.log(this._notice);
   }
 }
