@@ -1,30 +1,81 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ResultComponent } from './components/result/result.component';
+import { Global } from '../../services/global';
+import { GameService } from '../../services/games.service';
+import { HttpClientModule } from '@angular/common/http';
+import { elementAt } from 'rxjs';
+import { Element } from '@angular/compiler';
 
 @Component({
   selector: 'app-result-and-position',
   standalone: true,
-  imports: [ResultComponent],
+  imports: [ResultComponent, HttpClientModule],
   templateUrl: './result-and-position.component.html',
-  styleUrl: './result-and-position.component.css'
+  styleUrl: './result-and-position.component.css',
+  providers: [GameService],
 })
-export class ResultAndPositionComponent {
-  public nextResult = {
-    state:'Próximo',
-    tournament:'Copa de la liga Profesional',
-    date:'Martes 30/04 ',
-    hour:'20.00 hs',
-    stadium_name:'Estadio Mario Alberto Kempes',
-    local_team:'/assets/images/san_lorenzo.png',
-    visiting_team:'https://estudiantesdelaplata.com/wp-content/themes/edelp_v2/imgs/logo_edelp-v3.png'
-  };
-  public previousResult = {
-    state:'Anterior',
-    tournament:'Conmebol Libertadores',
-    date:'Martes 23/04',
-    hour:'19.00 hs.',
-    stadium_name:'Estadio Uno',
-    local_team:'https://estudiantesdelaplata.com/wp-content/themes/edelp_v2/imgs/logo_edelp-v3.png',
-    visiting_team:'/assets/images/san_lorenzo.png'
-  };
+export class ResultAndPositionComponent implements OnInit {
+  public nextResult: any[] = [];
+  public previousResult: any[] = [];
+
+  ngOnInit(): void {
+    this.getNextGame();
+    this.getPreviousGame();
+  }
+
+  constructor(private _games: GameService) {}
+  getNextGame() {
+    let date = new Date();
+    let current = date.toISOString().slice(0, 10);
+    let nextMonth = date.getMonth() + 1;
+    let nextYear = date.getFullYear();
+
+    if (nextMonth === 12) {
+      nextMonth = 0;
+      nextYear++;
+    }
+
+    let firstDateNext = new Date(nextYear, nextMonth, 1);
+    firstDateNext.setDate(firstDateNext.getDate() - 1);
+    let lastDay = firstDateNext.toISOString().slice(0, 10);
+
+    this._games
+      .getGames(current, lastDay)
+      .pipe()
+      .subscribe({
+        next: (element: any) => {
+          this.nextResult = element.result.reverse()[0];
+        },
+        error: (error) => {
+          console.log(`Error: ${error}`);
+        },
+      });
+  }
+  getPreviousGame() {
+    let date = new Date();
+    let current = date.toISOString().slice(0, 10);
+    let lastMonth = date.getMonth() - 1;
+    let lastYear = date.getFullYear();
+
+    if (lastMonth < 0) {
+      lastMonth = 11;
+      lastYear--;
+    }
+    let firstDayPrevious = new Date(lastYear, lastMonth, 1);
+
+    this._games
+      .getPreviousGame(
+        current,
+        firstDayPrevious.toISOString().slice(0, 10)
+      )
+      .pipe()
+      .subscribe({
+        next: (element: any) => {
+          this.previousResult = element.result[0];
+        },
+        error: (error) => {
+          console.log(`Error: ${error}`);
+        },
+      });
+  }
 }

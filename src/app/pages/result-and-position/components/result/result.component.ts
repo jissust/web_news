@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Result } from '../../../../models/result';
+//import { Result } from '../../../../models/result';
 
 @Component({
   selector: 'app-result',
@@ -9,7 +9,8 @@ import { Result } from '../../../../models/result';
   styleUrl: './result.component.css'
 })
 export class ResultComponent implements OnInit {
-  @Input() result!: Result;
+  @Input() result!: any;
+  @Input() title!: String;
 
   ngOnInit(): void {
       
