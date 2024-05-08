@@ -14,11 +14,12 @@
                 [result]="nextResult"
                 />
             </div>
+
             <div class="col-12 col-md-4">
                 <div class="card-position">
                     <h1>Posiciones</h1>
                     <h2>
-                        Copa de la liga 2023 - Zona 2
+                        {{ localTournament }} {{ year }} - {{ group }}
                     </h2>
                     <div>
                         <table class="table">
@@ -31,30 +32,14 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Godoy Cruz</td>
-                                <td>29</td>
-                                <td>14</td>
+                              @for(position of reducedPositionList; track positions){
+                              <tr >
+                                <th [class.item_principal]="position.team_key == teamId" scope="row">{{ position.standing_place }}</th>
+                                <td [class.item_principal]="position.team_key == teamId">{{ position.standing_team }}</td>
+                                <td [class.item_principal]="position.team_key == teamId">{{ position.standing_PTS }}</td>
+                                <td [class.item_principal]="position.team_key == teamId">{{ position.standing_P }}</td>
                               </tr>
-                              <tr>
-                                <th scope="row">2</th>
-                                <td>Estudiantes</td>
-                                <td>27</td>
-                                <td>14</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">3</th>
-                                <td>Def y Justifica</td>
-                                <td>26</td>
-                                <td>14</td>
-                              </tr>
-                              <tr class="table-success">
-                                <th scope="row">10</th>
-                                <td>San Lorenzo</td>
-                                <td>16</td>
-                                <td>14</td>
-                              </tr>
+                              }
                             </tbody>
                           </table>
                     </div>

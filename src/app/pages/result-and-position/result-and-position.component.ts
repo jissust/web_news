@@ -5,6 +5,7 @@ import { GameService } from '../../services/games.service';
 import { HttpClientModule } from '@angular/common/http';
 import { elementAt } from 'rxjs';
 import { Element } from '@angular/compiler';
+import { Result } from '../../models/result';
 
 @Component({
   selector: 'app-result-and-position',
@@ -15,16 +16,28 @@ import { Element } from '@angular/compiler';
   providers: [GameService],
 })
 export class ResultAndPositionComponent implements OnInit {
-  public nextResult: any[] = [];
-  public previousResult: any[] = [];
+  public nextResult: any = [];
+  public previousResult: any = [];
+  public positions: any = [];
+  public reducedPositionList: any = [];
+  public teamId!:string;
+  public group!:string;
+  public year!:number;
+  public localTournament!: string;
 
   ngOnInit(): void {
-    this.getNextGame();
-    this.getPreviousGame();
+
   }
 
-  constructor(private _games: GameService) {}
-  getNextGame() {
+  constructor(private _games: GameService) {
+    this.getNextGame();
+    this.getPreviousGame();
+    this.getPosition();
+    this.teamId = Global.teamId;
+    this.year = Global.year;
+    this.localTournament = Global.localTournament;      
+  }
+  getNextGame(){
     let date = new Date();
     let current = date.toISOString().slice(0, 10);
     let nextMonth = date.getMonth() + 1;
@@ -64,10 +77,7 @@ export class ResultAndPositionComponent implements OnInit {
     let firstDayPrevious = new Date(lastYear, lastMonth, 1);
 
     this._games
-      .getPreviousGame(
-        current,
-        firstDayPrevious.toISOString().slice(0, 10)
-      )
+      .getPreviousGame(current, firstDayPrevious.toISOString().slice(0, 10))
       .pipe()
       .subscribe({
         next: (element: any) => {
@@ -77,5 +87,31 @@ export class ResultAndPositionComponent implements OnInit {
           console.log(`Error: ${error}`);
         },
       });
+  }
+  getPosition(){
+    this._games
+    .getPosition()
+    .pipe()
+    .subscribe({
+      next: (element: any) => {
+        let listItems = element.result.total;
+        let sl = listItems.find((item:any) => item.team_key == this.teamId);
+        this.group = sl.league_round;
+        
+        /** tabla de posiciones completa - liga argentina */
+        const positions = listItems.filter((item: any) => item.league_round === this.group && item.stage_name === '1st Phase');
+        this.positions = positions;
+
+        /** tabla de posiciones reducida - ligar argentina */
+        this.reducedPositionList = positions.slice(0, 4); 
+        if(sl.standing_place > 3){
+          this.reducedPositionList.pop();
+          this.reducedPositionList.push(sl);
+        }
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
   }
 }

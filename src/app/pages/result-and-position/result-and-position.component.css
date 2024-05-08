@@ -22,3 +22,7 @@
 .card-position .table tbody td{
     padding: 0;
 }
+.item_principal{
+    background: #dc3545;
+    color: white
+}
