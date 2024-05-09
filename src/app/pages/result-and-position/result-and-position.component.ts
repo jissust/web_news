@@ -3,14 +3,13 @@ import { ResultComponent } from './components/result/result.component';
 import { Global } from '../../services/global';
 import { GameService } from '../../services/games.service';
 import { HttpClientModule } from '@angular/common/http';
-import { elementAt } from 'rxjs';
-import { Element } from '@angular/compiler';
-import { Result } from '../../models/result';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-result-and-position',
   standalone: true,
-  imports: [ResultComponent, HttpClientModule],
+  imports: [ResultComponent, HttpClientModule, CommonModule, FormsModule],
   templateUrl: './result-and-position.component.html',
   styleUrl: './result-and-position.component.css',
   providers: [GameService],
@@ -24,18 +23,23 @@ export class ResultAndPositionComponent implements OnInit {
   public group!:string;
   public year!:number;
   public localTournament!: string;
+  public localTournamentId: number = 44;
+  public liberatorsCup: number = 18;
+  public positionsLiberatorsCup: any = [];
+  public groupLiberatorsCup!:string;
+  public liberatorsCupName!: string;
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   constructor(private _games: GameService) {
     this.getNextGame();
     this.getPreviousGame();
     this.getPosition();
+    this.getPositionLiberatorsCup();
     this.teamId = Global.teamId;
     this.year = Global.year;
-    this.localTournament = Global.localTournament;      
+    this.localTournament = Global.localTournament;
+    this.liberatorsCupName = Global.liberatorsCupName;      
   }
   getNextGame(){
     let date = new Date();
@@ -90,7 +94,7 @@ export class ResultAndPositionComponent implements OnInit {
   }
   getPosition(){
     this._games
-    .getPosition()
+    .getPosition(this.localTournamentId)
     .pipe()
     .subscribe({
       next: (element: any) => {
@@ -99,7 +103,7 @@ export class ResultAndPositionComponent implements OnInit {
         this.group = sl.league_round;
         
         /** tabla de posiciones completa - liga argentina */
-        const positions = listItems.filter((item: any) => item.league_round === this.group && item.stage_name === '1st Phase');
+        let positions = listItems.filter((item: any) => item.league_round === this.group && item.stage_name === '1st Phase');
         this.positions = positions;
 
         /** tabla de posiciones reducida - ligar argentina */
@@ -110,7 +114,25 @@ export class ResultAndPositionComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.log(error)
+        console.log(`Error: ${error}`);
+      }
+    })
+  }
+  getPositionLiberatorsCup(){
+    this._games
+    .getPosition(this.liberatorsCup)
+    .pipe()
+    .subscribe({
+      next: (element:any) => {
+        let listItems = element.result.total;
+        let sl = listItems.find((item:any) => item.team_key == this.teamId);
+        this.groupLiberatorsCup = sl.league_round;
+        /** tabla de posiciones - copa libertadores */
+        let positions = listItems.filter((item: any) => item.league_round === this.groupLiberatorsCup);
+        this.positionsLiberatorsCup = positions;
+      },
+      error: (error) => {
+        console.log(`Error: ${error}`);
       }
     })
   }
