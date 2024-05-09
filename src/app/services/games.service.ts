@@ -29,7 +29,8 @@ export class GameService {
   }
   getPosition(leagueId: number) {
     return this._http.get(
-      `https://apiv2.allsportsapi.com/football/?&met=Standings&leagueId=${leagueId}&APIkey=${this.allSportsApiKey}`
+      this.url +
+      `?&met=Standings&leagueId=${leagueId}&APIkey=${this.allSportsApiKey}`
     );
   }
 }
