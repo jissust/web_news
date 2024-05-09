@@ -19,14 +19,14 @@ export class ResultAndPositionComponent implements OnInit {
   public previousResult: any = [];
   public positions: any = [];
   public reducedPositionList: any = [];
-  public teamId!:string;
-  public group!:string;
-  public year!:number;
+  public teamId!: string;
+  public group!: string;
+  public year!: number;
   public localTournament!: string;
   public localTournamentId: number = 44;
   public liberatorsCup: number = 18;
   public positionsLiberatorsCup: any = [];
-  public groupLiberatorsCup!:string;
+  public groupLiberatorsCup!: string;
   public liberatorsCupName!: string;
 
   ngOnInit(): void {}
@@ -39,9 +39,9 @@ export class ResultAndPositionComponent implements OnInit {
     this.teamId = Global.teamId;
     this.year = Global.year;
     this.localTournament = Global.localTournament;
-    this.liberatorsCupName = Global.liberatorsCupName;      
+    this.liberatorsCupName = Global.liberatorsCupName;
   }
-  getNextGame(){
+  getNextGame() {
     let date = new Date();
     let current = date.toISOString().slice(0, 10);
     let nextMonth = date.getMonth() + 1;
@@ -92,48 +92,54 @@ export class ResultAndPositionComponent implements OnInit {
         },
       });
   }
-  getPosition(){
+  getPosition() {
     this._games
-    .getPosition(this.localTournamentId)
-    .pipe()
-    .subscribe({
-      next: (element: any) => {
-        let listItems = element.result.total;
-        let sl = listItems.find((item:any) => item.team_key == this.teamId);
-        this.group = sl.league_round;
-        
-        /** tabla de posiciones completa - liga argentina */
-        let positions = listItems.filter((item: any) => item.league_round === this.group && item.stage_name === '1st Phase');
-        this.positions = positions;
+      .getPosition(this.localTournamentId)
+      .pipe()
+      .subscribe({
+        next: (element: any) => {
+          let listItems = element.result.total;
+          let sl = listItems.find((item: any) => item.team_key == this.teamId);
+          this.group = sl.league_round;
 
-        /** tabla de posiciones reducida - ligar argentina */
-        this.reducedPositionList = positions.slice(0, 4); 
-        if(sl.standing_place > 3){
-          this.reducedPositionList.pop();
-          this.reducedPositionList.push(sl);
-        }
-      },
-      error: (error) => {
-        console.log(`Error: ${error}`);
-      }
-    })
+          /** tabla de posiciones completa - liga argentina */
+          let positions = listItems.filter(
+            (item: any) =>
+              item.league_round === this.group &&
+              item.stage_name === '1st Phase'
+          );
+          this.positions = positions;
+
+          /** tabla de posiciones reducida - ligar argentina */
+          this.reducedPositionList = positions.slice(0, 4);
+          if (sl.standing_place > 3) {
+            this.reducedPositionList.pop();
+            this.reducedPositionList.push(sl);
+          }
+        },
+        error: (error) => {
+          console.log(`Error: ${error}`);
+        },
+      });
   }
-  getPositionLiberatorsCup(){
+  getPositionLiberatorsCup() {
     this._games
-    .getPosition(this.liberatorsCup)
-    .pipe()
-    .subscribe({
-      next: (element:any) => {
-        let listItems = element.result.total;
-        let sl = listItems.find((item:any) => item.team_key == this.teamId);
-        this.groupLiberatorsCup = sl.league_round;
-        /** tabla de posiciones - copa libertadores */
-        let positions = listItems.filter((item: any) => item.league_round === this.groupLiberatorsCup);
-        this.positionsLiberatorsCup = positions;
-      },
-      error: (error) => {
-        console.log(`Error: ${error}`);
-      }
-    })
+      .getPosition(this.liberatorsCup)
+      .pipe()
+      .subscribe({
+        next: (element: any) => {
+          let listItems = element.result.total;
+          let sl = listItems.find((item: any) => item.team_key == this.teamId);
+          this.groupLiberatorsCup = sl.league_round;
+          /** tabla de posiciones - copa libertadores */
+          let positions = listItems.filter(
+            (item: any) => item.league_round === this.groupLiberatorsCup
+          );
+          this.positionsLiberatorsCup = positions;
+        },
+        error: (error) => {
+          console.log(`Error: ${error}`);
+        },
+      });
   }
 }

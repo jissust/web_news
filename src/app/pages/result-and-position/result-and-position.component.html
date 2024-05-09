@@ -1,78 +1,68 @@
 <section id="result-and-position" class="result-and-position">
-    
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-3">
-                <app-result
-                [title]="'Anterior'"
-                [result]="previousResult"
-                />
-            </div>
-            <div class="col-12 col-md-3">
-                <app-result
-                [title]="'Siguiente'"
-                [result]="nextResult"
-                />
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-3">
+        <app-result [title]="'Anterior'" [result]="previousResult" />
+      </div>
+      <div class="col-12 col-md-3">
+        <app-result [title]="'Siguiente'" [result]="nextResult" />
+      </div>
 
-            <div class="col-12 col-md-3">
-                <div class="card-position">
-                    <h1>Posiciones</h1>
-                    <h2>
-                        {{ localTournament }} {{ year }} - {{ group }}
-                    </h2>
-                    <div>
-                        <table class="table">
-                            <thead>
-                              <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Equipo</th>
-                                <th scope="col">Pts</th>
-                                <th scope="col">PJ</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              @for(position of reducedPositionList; track positions){
-                              <tr>
-                                <th scope="row">{{ position.standing_place }}</th>
-                                <td>{{ position.standing_team }}</td>
-                                <td>{{ position.standing_PTS }}</td>
-                                <td>{{ position.standing_P }}</td>
-                              </tr>
-                              }
-                            </tbody>
-                          </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-3">
-              <div class="card-position">
-              <h1>Posiciones</h1>
-              <h2>
-                  {{ liberatorsCupName }} {{ year }} - {{ groupLiberatorsCup }}
-              </h2>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Equipo</th>
-                    <th scope="col">Pts</th>
-                    <th scope="col">PJ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @for(position of positionsLiberatorsCup; track positionsLiberatorsCup){
-                    <tr>
-                      <th scope="row">{{ position.standing_place }}</th>
-                      <td >{{ position.standing_team }}</td>
-                      <td >{{ position.standing_PTS }}</td>
-                      <td >{{ position.standing_P }}</td>
-                    </tr>
-                  }
-                </tbody>
-              </table>
-            </div>
-            </div>
+      <div class="col-12 col-md-3">
+        <div class="card-position">
+          <h1>Posiciones</h1>
+          <h2>{{ localTournament }} {{ year }} - {{ group }}</h2>
+          <div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Equipo</th>
+                  <th scope="col">Pts</th>
+                  <th scope="col">PJ</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for(position of reducedPositionList; track positions){
+                <tr>
+                  <th scope="row">{{ position.standing_place }}</th>
+                  <td>{{ position.standing_team }}</td>
+                  <td>{{ position.standing_PTS }}</td>
+                  <td>{{ position.standing_P }}</td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="card-position">
+          <h1>Posiciones</h1>
+          <h2>{{ liberatorsCupName }} {{ year }} - {{ groupLiberatorsCup }}</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Equipo</th>
+                <th scope="col">Pts</th>
+                <th scope="col">PJ</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(position of positionsLiberatorsCup; track
+              positionsLiberatorsCup){
+              <tr>
+                <th scope="row">{{ position.standing_place }}</th>
+                <td>{{ position.standing_team }}</td>
+                <td>{{ position.standing_PTS }}</td>
+                <td>{{ position.standing_P }}</td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-</section> 
+  </div>
+</section>

@@ -27,7 +27,9 @@ export class GameService {
         `?met=Fixtures&APIkey=${this.allSportsApiKey}&from=${primerDia}&to=${fechaActual}&teamId=${this.teamId}`
     );
   }
-  getPosition(leagueId: number){
-    return this._http.get(`https://apiv2.allsportsapi.com/football/?&met=Standings&leagueId=${leagueId}&APIkey=${this.allSportsApiKey}`);
+  getPosition(leagueId: number) {
+    return this._http.get(
+      `https://apiv2.allsportsapi.com/football/?&met=Standings&leagueId=${leagueId}&APIkey=${this.allSportsApiKey}`
+    );
   }
 }

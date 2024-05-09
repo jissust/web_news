@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, Input, OnInit, Pipe } from '@angular/core';
 //import { Result } from '../../../../models/result';
 
 @Component({
   selector: 'app-result',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './result.component.html',
   styleUrl: './result.component.css'
 })
