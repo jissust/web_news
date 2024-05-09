@@ -29,13 +29,14 @@ export class ResultAndPositionComponent implements OnInit {
   public groupLiberatorsCup!: string;
   public liberatorsCupName!: string;
 
-  ngOnInit(): void {}
-
-  constructor(private _games: GameService) {
-    this.getNextGame();
-    this.getPreviousGame();
+  ngOnInit(): void {
     this.getPosition();
     this.getPositionLiberatorsCup();
+    this.getNextGame();
+    this.getPreviousGame();
+  }
+
+  constructor(private _games: GameService) {
     this.teamId = Global.teamId;
     this.year = Global.year;
     this.localTournament = Global.localTournament;

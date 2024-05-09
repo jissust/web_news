@@ -1,6 +1,6 @@
 <section class="home">
   <swiper-container
-    loop="true"
+    loop="false"
     slides-per-view="1"
     speed="1000"
     autoplay="true"
@@ -13,6 +13,7 @@
     ">
     @for(item of items; track items ) {  
     <swiper-slide class="position-relative">
+      <div>
       <a href="/notice/{{item._id}}" class="home_text_swiper">
         <span class="badge bg-danger">Futbol</span>
         <h1>{{ item.title }}</h1>
@@ -24,6 +25,7 @@
       </a>
       <img src="{{ item.url_image }}" alt="{{ item.title }}" />
       <div class="home_shadow"></div>
+      </div>
     </swiper-slide>
     }
   </swiper-container>
