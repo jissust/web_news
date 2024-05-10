@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { NoticeService } from '../../../../services/notice.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { NavbarComponent } from '../../../../components/navbar/navbar.component';
+import { FooterComponent } from '../../../../components/footer/footer.component';
 
 @Component({
   selector: 'app-notice',
   standalone: true,
-  imports: [],
+  imports: [NavbarComponent, FooterComponent],
   templateUrl: './notice.component.html',
   styleUrl: './notice.component.css'
 })
