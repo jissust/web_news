@@ -62,7 +62,7 @@ export class ResultAndPositionComponent implements OnInit {
       .pipe()
       .subscribe({
         next: (element: any) => {
-          this.nextResult = element.result.reverse()[0];
+          this.nextResult = element.result.pop();
         },
         error: (error) => {
           console.log(`Error: ${error}`);
@@ -137,6 +137,7 @@ export class ResultAndPositionComponent implements OnInit {
             (item: any) => item.league_round === this.groupLiberatorsCup
           );
           this.positionsLiberatorsCup = positions;
+          console.log(this.positionsLiberatorsCup);
         },
         error: (error) => {
           console.log(`Error: ${error}`);

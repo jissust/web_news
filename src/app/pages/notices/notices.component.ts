@@ -17,6 +17,5 @@ export class NoticesComponent implements OnInit{
   }
   ngOnInit(): void {
       this.news = this._notice.getItems();
-      console.log(this._notice);
   }
 }
