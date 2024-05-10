@@ -1,20 +1,9 @@
 .login{
-    background-image: url(https://marcha.org.ar/wp-content/uploads/2020/06/San-Lorenzo-2-1024x682.jpg);
+    background-image: url('../../../assets/images/admin/bg-admin.jpg');
     background-size: cover;
     background-repeat: no-repeat;
 }
-.column-1{
-    background-color: #09488c;
-    display: none;
-}
-@media (min-width: 768px) {
-    .column-1{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
-.column-2{
+.bg-login{
     background-color: #dc354590;
     display: flex;
     justify-content: center;
@@ -23,11 +12,6 @@
 .card-login-img-mobile{
     display: flex;
     justify-content: center;
-}
-@media (min-width: 768px) {
-    .card-login-img-mobile{
-        display: none;
-    }
 }
 .card-login{
     max-width: 400px;
