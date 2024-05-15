@@ -29,7 +29,19 @@ export class CategoryEditComponent {
     this.getCategory();
   }
   onSubmit(){
-    console.log(this.category)
+    this._categoryService.update(this.category)
+    .pipe()
+    .subscribe({
+      next: (element: any) => {
+        if(element.status == 'success'){
+          this._router.navigate(['/admin/categories'])
+        }
+      },
+      error: (error)=>{
+        console.log(error)
+      }
+    })
+    
   }
   getCategory(){
     this._route.params

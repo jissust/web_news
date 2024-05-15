@@ -23,4 +23,12 @@ export class CategoryService{
     getCategory(categoryId: string){
         return this._http.get(this.url + 'category/' + categoryId)
     }
+    update(category: any) {
+        let id = category._id;
+        let params = JSON.stringify(category);
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.put(this.url + 'category/edit/' + id, params, {
+          headers: headers,
+        });
+      }
 }

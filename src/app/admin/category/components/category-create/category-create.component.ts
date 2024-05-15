@@ -3,7 +3,8 @@ import { NavbarComponent } from '../../../components/navbar/navbar.component';
 import { Category } from '../../../../models/category';
 import { CategoryService } from '../../../../services/category.service';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-create',
@@ -17,7 +18,12 @@ export class CategoryCreateComponent {
   public page_title!: string;
   public category!: Category;
 
-  constructor(private _categoryService: CategoryService) {
+  constructor(
+    private _categoryService: CategoryService,
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _http: HttpClient
+  ) {
     this.page_title = 'Crear categoria';
     this.category = new Category('', '', '');
   }
@@ -28,7 +34,7 @@ export class CategoryCreateComponent {
       .subscribe({
         next: (element: any) => {
           if (element.status == 'success') {
-            window.location.href = 'admin/categories';
+            this._router.navigate(['/admin/categories'])
           }
         },
         error: (error) => {
