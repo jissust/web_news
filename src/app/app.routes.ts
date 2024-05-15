@@ -8,6 +8,7 @@ import { ArticleComponent } from './admin/article/article.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { CategoryCreateComponent } from './admin/category/components/category-create/category-create.component';
 import { CategoryEditComponent } from './admin/category/components/category-edit/category-edit.component';
+import { ArticleEditComponent } from './admin/news/components/article-edit/article-edit.component';
 
 export const routes: Routes = [
     {path:'', component: HomeComponent},
@@ -16,6 +17,7 @@ export const routes: Routes = [
     {path:'admin/login', component: LoginComponent},
     {path:'admin/news', component: NewsComponent},
     {path:'admin/news/create', component: ArticleComponent},
+    {path:'admin/news/edit/:id', component: ArticleEditComponent},
     {path:'admin/categories', component: CategoryComponent},
     {path:'admin/category/create', component: CategoryCreateComponent},
     {path:'admin/category/edit/:id', component: CategoryEditComponent}

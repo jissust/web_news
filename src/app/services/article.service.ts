@@ -19,5 +19,17 @@ export class ArticleService{
         return this._http.post(this.url + 'save', params, { headers: headers });
     }
 
+    getArticles(last: any = null): Observable<any> {
+        var articles = 'articles';
     
+        /*if (last != null) {
+          articles = 'articles/' + last;
+        }*/
+    
+        return this._http.get(this.url + articles);
+      }
+      delete(id: any): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.delete(this.url + 'article/' + id, { headers: headers });
+      }
 }
