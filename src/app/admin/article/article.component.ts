@@ -4,11 +4,12 @@ import { Article } from '../../models/article';
 import { FormsModule } from '@angular/forms';
 import { ArticleService } from '../../services/article.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, HttpClientModule],
+  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
   providers: [ArticleService]

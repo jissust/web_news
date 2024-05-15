@@ -18,7 +18,7 @@ export class NewsComponent implements OnInit {
   constructor(
     private _articleService: ArticleService,
     private _router: Router,
-    
+
   ){
     this.getArticles()
   }
@@ -40,7 +40,6 @@ export class NewsComponent implements OnInit {
     })
   }
   delete(id: any){
-    console.log(id);
     this._articleService.delete(id)
     .pipe()
     .subscribe({
