@@ -1,16 +1,25 @@
 <app-navbar />
 <section class="section_admin">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>{{ page_title }}</h1>
+      </div>
+    </div>
+  </div>
   <form #articleForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1>{{page_title}}</h1>
-            </div>
-        </div>
       <div class="row">
         <div class="col-12">
           <div class="form-group mb-3">
-            <input type="text" class="form-control" placeholder="Título" name="title" #title="ngModel" [(ngModel)]="article.title" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Título"
+              name="title"
+              #title="ngModel"
+              [(ngModel)]="article.title"
+            />
           </div>
         </div>
         <div class="col-6">
@@ -39,7 +48,9 @@
             rows="10"
             class="form-control mb-3"
             placeholder="Descripción"
-            name="content" #content="ngModel" [(ngModel)]="article.content"
+            name="content"
+            #content="ngModel"
+            [(ngModel)]="article.content"
           ></textarea>
         </div>
         <div class="col-12">Galería de imagenes</div>

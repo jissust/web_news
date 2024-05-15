@@ -1,6 +1,11 @@
 <app-navbar />
 <section class="section_admin">
   <div class="container">
+    <div class="row mb-2">
+        <div class="col-12 d-flex align-items-center justify-content-end">
+            <a href="/admin/category/create" class="btn btn-danger">Crear Categoria</a>
+        </div>
+    </div>
     <div class="row">
       <div class="table-responsive">
         <table class="table">
@@ -8,7 +13,7 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Título</th>
-              <th scope="col">Descripción</th>
+              <th scope="col">Autor</th>
               <th scope="col">Fecha</th>
               <th scope="col">Acción</th>
             </tr>
@@ -16,7 +21,7 @@
           <tbody>
             @for(category of categories; track categories){
             <tr>
-              <th scope="row">1</th>
+              <th scope="row">{{category._id}}</th>
               <td>{{category.name}}</td>
               <td>{{category.autor}}</td>
               <td>{{category.date}}</td>

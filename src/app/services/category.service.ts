@@ -12,7 +12,11 @@ export class CategoryService{
     ){
         this.url = Global.urlApi;
     }
-
+    create(category: any): Observable<any> {
+        let params = JSON.stringify(category);
+        let headers = new HttpHeaders().set('Content-type', 'application/json');
+        return this._http.post(this.url + 'category/save', params, { headers: headers });
+    }
     getCategories(){
         return this._http.get(this.url + 'category/categories');    
     }
