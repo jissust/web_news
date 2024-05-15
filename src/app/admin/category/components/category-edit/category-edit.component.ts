@@ -3,13 +3,13 @@ import { NavbarComponent } from '../../../components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Category } from '../../../../models/category';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CategoryService } from '../../../../services/category.service';
 
 @Component({
   selector: 'app-category-edit',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, HttpClientModule],
+  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule],
   templateUrl: './category-edit.component.html',
   styleUrl: './category-edit.component.css',
   providers: [CategoryService]

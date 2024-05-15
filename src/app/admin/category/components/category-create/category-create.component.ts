@@ -4,12 +4,12 @@ import { Category } from '../../../../models/category';
 import { CategoryService } from '../../../../services/category.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-category-create',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, HttpClientModule],
+  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule],
   templateUrl: './category-create.component.html',
   styleUrl: './category-create.component.css',
   providers: [CategoryService],

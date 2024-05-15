@@ -14,3 +14,11 @@ section.section_admin{
         margin: 40px;
     }
 }
+
+/** admin */
+.admin_h1 {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
