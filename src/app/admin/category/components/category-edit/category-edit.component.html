@@ -1,0 +1,35 @@
+<app-navbar />
+<section class="section_admin">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>{{page_title}}</h1>
+            </div>
+        </div>
+    </div>
+    <form action="" #categoryForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control" placeholder="Nombre" name="name" #name="ngModel" [(ngModel)]="category.name">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group mb-3">
+                        <select name="autor" id="" class="form-control" #autor="ngModel" [(ngModel)]="category.autor">
+                            <option value="">Seleccionar autor</option>
+                            <option value="1">opcion 1</option>
+                            <option value="2">opcion 2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group d-flex justify-content-end align-items-center">
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

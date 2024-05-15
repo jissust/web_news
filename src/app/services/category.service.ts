@@ -20,4 +20,7 @@ export class CategoryService{
     getCategories(){
         return this._http.get(this.url + 'category/categories');    
     }
+    getCategory(categoryId: string){
+        return this._http.get(this.url + 'category/' + categoryId)
+    }
 }

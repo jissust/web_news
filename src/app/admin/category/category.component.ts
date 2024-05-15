@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { CategoryService } from '../../services/category.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [NavbarComponent, HttpClientModule],
+  imports: [NavbarComponent, HttpClientModule, RouterModule],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css',
   providers: [CategoryService]
