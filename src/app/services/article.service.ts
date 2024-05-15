@@ -16,7 +16,14 @@ export class ArticleService {
     let headers = new HttpHeaders().set('Content-type', 'application/json');
     return this._http.post(this.url + 'save', params, { headers: headers });
   }
-
+  update(article: any): Observable<any> {
+    let id = article._id;
+    let params = JSON.stringify(article);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.put(this.url + 'article/' + id, params, {
+      headers: headers,
+    });
+  }
   getArticles(last: any = null): Observable<any> {
     var articles = 'articles';
 

@@ -31,6 +31,19 @@ export class ArticleEditComponent implements OnInit{
   }
   onSubmit(){
     console.log(this.article);
+    this._articleService.update(this.article)
+    .pipe()
+    .subscribe({
+      next: (element:any) => {
+        if(element.status == 'success'){
+          this.article = element.art;
+          this._router.navigate(['/admin/news']);
+        }
+      },
+      error: (error: any) => {
+        console.log(error)
+      }
+    })
   }
   getArticle(){
     this._route.params
