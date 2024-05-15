@@ -2,9 +2,11 @@
 <section class="section_admin">
   <div class="container">
     <div class="row mb-2">
-        <div class="col-12 d-flex align-items-center justify-content-end">
-            <a href="/admin/category/create" class="btn btn-danger">Crear Categoria</a>
-        </div>
+      <div class="col-12 d-flex align-items-center justify-content-end">
+        <a href="/admin/category/create" class="btn btn-danger"
+          >Crear Categoria</a
+        >
+      </div>
     </div>
     <div class="row">
       <div class="table-responsive">
@@ -21,15 +23,13 @@
           <tbody>
             @for(category of categories; track categories){
             <tr>
-              <th scope="row">{{category._id}}</th>
-              <td>{{category.name}}</td>
-              <td>{{category.autor}}</td>
-              <td>{{category.date}}</td>
+              <th scope="row">{{ category._id }}</th>
+              <td>{{ category.name }}</td>
+              <td>{{ category.autor }}</td>
+              <td>{{ category.date }}</td>
               <td>
                 <div class="d-flex align-items-center">
-                  <a 
-                  [routerLink]="['/admin/category/edit/', category._id]"
-                  >
+                  <a [routerLink]="['/admin/category/edit/', category._id]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 576 512"
@@ -41,7 +41,7 @@
                       />
                     </svg>
                   </a>
-                  <button class="">
+                  <button class="" (click)="delete(category._id)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 448 512"

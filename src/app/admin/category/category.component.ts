@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { CategoryService } from '../../services/category.service';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -10,34 +10,52 @@ import { RouterModule } from '@angular/router';
   imports: [NavbarComponent, HttpClientModule, RouterModule],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css',
-  providers: [CategoryService]
+  providers: [CategoryService],
 })
-export class CategoryComponent implements OnInit{
-  public categories!:any;
+export class CategoryComponent implements OnInit {
+  public categories!: any;
 
   constructor(
-    private _categoryService: CategoryService
-  ){
-    this.getCategories();  
+    private _categoryService: CategoryService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
+    private _http: HttpClient
+  ) {
+    this.getCategories();
   }
 
-  ngOnInit(): void {
-  
-  }
+  ngOnInit(): void {}
 
-  getCategories(){
+  getCategories() {
     this._categoryService
-    .getCategories()
-    .pipe()
-    .subscribe({
-      next: (element: any) => {
-        if(element.status == 'success'){
-          this.categories = element.category; 
-        }
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
+      .getCategories()
+      .pipe()
+      .subscribe({
+        next: (element: any) => {
+          if (element.status == 'success') {
+            this.categories = element.category;
+          }
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+  }
+  delete(id: any) {
+    console.log(id);
+    this._categoryService
+      .delete(id)
+      .pipe()
+      .subscribe({
+        next: (element: any) => {
+          if (element.status == 'success') {
+            this.getCategories();
+            this._router.navigate(['/admin/categories']);
+          }
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 }
