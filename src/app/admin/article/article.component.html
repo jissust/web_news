@@ -1,0 +1,54 @@
+<app-navbar />
+<section class="section_admin">
+  <form #articleForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>{{page_title}}</h1>
+            </div>
+        </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group mb-3">
+            <input type="text" class="form-control" placeholder="Título" name="title" #title="ngModel" [(ngModel)]="article.title" />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group mb-3">
+            <select name="" id="" class="form-control" placeholder="Categoria">
+              <option value="">Seleccionar categoria</option>
+              <option value="">opcion 1</option>
+              <option value="">opcion 2</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group mb-3">
+            <select name="" id="" class="form-control" placeholder="Autor">
+              <option value="">Seleccionar autor</option>
+              <option value="">opcion 1</option>
+              <option value="">opcion 2</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-12">
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+            class="form-control mb-3"
+            placeholder="Descripción"
+            name="content" #content="ngModel" [(ngModel)]="article.content"
+          ></textarea>
+        </div>
+        <div class="col-12">Galería de imagenes</div>
+      </div>
+      <div class="col-12">
+        <div class="form-group d-flex justify-content-end align-items-center">
+          <button type="submit" class="btn btn-primary">Crear</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>

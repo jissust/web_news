@@ -7,4 +7,6 @@ export var Global = {
   year: currentDate.getFullYear(),
   localTournament: 'Copa de la liga',
   liberatorsCupName: 'Copa Libertadores',
+  urlApi: 'http://localhost:3900/api/'
 };
+

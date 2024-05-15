@@ -6,3 +6,11 @@
 h1 {
     font-family: "Archivo Black", sans-serif;
 }
+section.section_admin{
+    margin: 20px 10px;
+}
+@media (min-width: 768px) {
+    section.section_admin{
+        margin: 40px;
+    }
+}
