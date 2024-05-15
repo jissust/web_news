@@ -48,7 +48,6 @@ export class CategoryEditComponent {
     .pipe()
     .subscribe({
       next: (element: any) => {
-        console.log(element.id);
         this._categoryService.getCategory(element.id)
         .pipe()
         .subscribe({

@@ -4,7 +4,7 @@ import { Article } from '../../models/article';
 import { FormsModule } from '@angular/forms';
 import { ArticleService } from '../../services/article.service';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-article',
@@ -22,7 +22,9 @@ export class ArticleComponent implements OnInit{
   
   }
   constructor(
-    private _articleService: ArticleService
+    private _articleService: ArticleService,
+    private _router: Router,
+    private _route: ActivatedRoute
   ){
     this.page_title = 'Crear articulo';
     this.article = new Article('', '', '', '');
@@ -33,7 +35,7 @@ export class ArticleComponent implements OnInit{
     .pipe()
     .subscribe({
       next: (element:any) => {
-        console.log(element);
+        this._router.navigate(['/admin/news']);
       },
       error: (error:any) => {
         console.log(error);

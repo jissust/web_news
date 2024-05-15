@@ -30,7 +30,6 @@ export class ArticleEditComponent implements OnInit{
 
   }
   onSubmit(){
-    console.log(this.article);
     this._articleService.update(this.article)
     .pipe()
     .subscribe({

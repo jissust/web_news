@@ -42,7 +42,6 @@ export class CategoryComponent implements OnInit {
       });
   }
   delete(id: any) {
-    console.log(id);
     this._categoryService
       .delete(id)
       .pipe()
