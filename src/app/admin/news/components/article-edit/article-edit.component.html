@@ -33,10 +33,11 @@
             </div>
             <div class="col-6">
               <div class="form-group mb-3">
-                <select name="" id="" class="form-control" placeholder="Categoria">
+                <select name="category" id="" class="form-control" placeholder="Categoria" #category="ngModel" [(ngModel)]="categorySelected">
                   <option value="">Seleccionar categoria</option>
-                  <option value="">opcion 1</option>
-                  <option value="">opcion 2</option>
+                  @for(category of categories; track categories){
+                    <option value="{{category._id}}" [attr.selected]="categorySelected === category._id ? true:null">{{category.name}}</option>
+                  }
                 </select>
               </div>
             </div>

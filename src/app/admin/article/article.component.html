@@ -42,10 +42,11 @@
         </div>
         <div class="col-6">
           <div class="form-group mb-3">
-            <select name="" id="" class="form-control" placeholder="Categoria">
-              <option value="">Seleccionar categoria</option>
-              <option value="">opcion 1</option>
-              <option value="">opcion 2</option>
+            <select name="category" id="" class="form-control" placeholder="Categoria" (change)="onChange($event)">
+              <option value="">Seleccionar categoría</option>
+              @for(category of categories; track categories){
+              <option value="{{category._id}}">{{category.name}}</option>
+              }
             </select>
           </div>
         </div>
