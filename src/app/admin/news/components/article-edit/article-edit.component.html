@@ -63,7 +63,13 @@
                 [(ngModel)]="article.content"
               ></textarea>
             </div>
-            <div class="col-12">Galería de imagenes</div>
+            <div class="col-12">
+              <div>
+                @for(article_carrusel_item of article_carrusel_images; track article_carrusel_images){
+                  <img src="{{ url + 'get-image/' + article_carrusel_item['name'] }}" alt="">
+                }
+              </div>
+            </div>
           </div>
           <div class="col-12">
             <div class="form-group d-flex justify-content-end align-items-center">

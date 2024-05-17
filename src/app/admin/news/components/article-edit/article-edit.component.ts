@@ -8,6 +8,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Category } from '../../../../models/category';
 import { CategoryService } from '../../../../services/category.service';
 import { ArticleCategoryService } from '../../../../services/article_category.service';
+import { Global } from '../../../../services/global';
+import { ArticleCarruselService } from '../../../../services/article_carrusel.service';
 
 @Component({
   selector: 'app-article-edit',
@@ -15,18 +17,21 @@ import { ArticleCategoryService } from '../../../../services/article_category.se
   imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule],
   templateUrl: './article-edit.component.html',
   styleUrl: './article-edit.component.css',
-  providers: [ArticleService, CategoryService, ArticleCategoryService]
+  providers: [ArticleService, CategoryService, ArticleCategoryService, ArticleCarruselService]
 })
 export class ArticleEditComponent implements OnInit{
   public page_title!: string;
   public article!: Article;
   public categories!: Category[];
   public categorySelected!: string;
+  public url!: string;
+  public article_carrusel_images!: [];
 
   constructor(
     private _articleService: ArticleService,
     private _categoryService: CategoryService,
     private _articleCategoryService: ArticleCategoryService,
+    private _articleCarruselService: ArticleCarruselService,
     private _router: Router,
     private _route: ActivatedRoute
   ){
@@ -34,6 +39,8 @@ export class ArticleEditComponent implements OnInit{
     this.article = new Article('','','','');
     this.getArticle();    
     this.getCategories();
+    this.url = Global.urlApi;
+    
   }
   ngOnInit(): void {
 
@@ -67,6 +74,7 @@ export class ArticleEditComponent implements OnInit{
               this.article = element.article;
               this.categorySelected = '';
               this.getArticleCategory();
+              this.getArticleCarrusel();
             }
           },
           error: (error) => {
@@ -103,6 +111,21 @@ export class ArticleEditComponent implements OnInit{
         if(element.status == 'success'){
           this.categorySelected = element.article.category_id;
         }
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+  }
+  getArticleCarrusel(){
+    let id = this.article._id;
+    this._articleCarruselService
+    .getArticleCarrusel(id)
+    .pipe()
+    .subscribe({
+      next: (element:any) => {
+        console.log(element.res);
+        this.article_carrusel_images = element.res; 
       },
       error: (error) => {
         console.log(error)

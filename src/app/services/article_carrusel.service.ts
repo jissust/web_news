@@ -16,4 +16,7 @@ export class ArticleCarruselService {
         return this._http
         .post(this.url + 'upload-image/' + articleId, image);  
     }
+    getArticleCarrusel(articleId: any): Observable<any>{
+        return this._http.get(this.url + 'article_carrusel/' + articleId);
+    }
 }
