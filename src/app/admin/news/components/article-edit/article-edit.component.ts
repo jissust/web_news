@@ -124,7 +124,6 @@ export class ArticleEditComponent implements OnInit{
     .pipe()
     .subscribe({
       next: (element:any) => {
-        console.log(element.res);
         this.article_carrusel_images = element.res; 
       },
       error: (error) => {
