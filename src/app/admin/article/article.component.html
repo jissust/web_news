@@ -72,7 +72,11 @@
             [(ngModel)]="article.content"
           ></textarea>
         </div>
-        <div class="col-12">Galería de imagenes</div>
+        <div class="col-12">
+          <div class="form-group">
+            <input type="file" class="form-control mb-3" id="file" name="file" (change)="onFileSelected($event)" #fileUpload>
+          </div>
+        </div>
       </div>
       <div class="col-12">
         <div class="form-group d-flex justify-content-end align-items-center">

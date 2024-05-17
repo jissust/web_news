@@ -9,6 +9,7 @@ import { Category } from '../../models/category';
 import { CategoryService } from '../../services/category.service';
 import { ArticleCategoryService } from '../../services/article_category.service';
 import { ArticleCategory } from '../../models/article_category';
+import { ArticleCarruselService } from '../../services/article_carrusel.service';
 
 @Component({
   selector: 'app-article',
@@ -16,13 +17,15 @@ import { ArticleCategory } from '../../models/article_category';
   imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
-  providers: [ArticleService, CategoryService, ArticleCategoryService]
+  providers: [ArticleService, CategoryService, ArticleCategoryService, ArticleCarruselService]
 })
 export class ArticleComponent implements OnInit{
   public article!: Article;
   public page_title!: String;
   public categories!: Category[];
   public categorySelected!: string;
+  public fileName!: string;
+  public imageChange!: string;
 
   ngOnInit(): void {
 
@@ -31,6 +34,7 @@ export class ArticleComponent implements OnInit{
     private _articleService: ArticleService,
     private _articleCategoryService: ArticleCategoryService,
     private _categoryService: CategoryService,
+    private _articleCarruselService: ArticleCarruselService,
     private _router: Router
   ){
     this.page_title = 'Crear articulo';
@@ -39,6 +43,9 @@ export class ArticleComponent implements OnInit{
     this.categorySelected = '';
   }
   onSubmit(){
+    var formData = new FormData();
+    formData.append('file', this.imageChange);
+
     this._articleService
     .create(this.article)
     .pipe()
@@ -47,24 +54,40 @@ export class ArticleComponent implements OnInit{
         let categoryId = this.categorySelected;
         if(element.status == 'success'){
           let articleId = element.article._id;
-          
+
+          /** Relación entre Article y Category */
           let articleCategory = new ArticleCategory('', '', '');
           articleCategory.article_id = articleId;
           articleCategory.category_id = categoryId;
+          
           this._articleCategoryService
           .save(articleCategory)
           .pipe()
           .subscribe({
             next: (element:any) => {
-              console.log(element)
               if(element.status == 'success'){
-                this._router.navigate(['/admin/news']);
+                //this._router.navigate(['/admin/news']);
               }
             },
             error: (error) => {
               console.log(error)
             }
           })
+
+          /** Relación entre Article y Article Carrusel (relacion entre imagenes y articulos) */
+          this._articleCarruselService
+          .save(articleId, formData)
+          .pipe()
+          .subscribe({
+            next: (element: any) => {
+
+            },
+            error: (error) => {
+              
+            }
+          });  
+
+          /** Relación entre Article y User */
         }        
       },
       error: (error:any) => {
@@ -90,5 +113,9 @@ export class ArticleComponent implements OnInit{
     /** category id */
     let categoryId = event.target.value;
     this.categorySelected = categoryId;
+  }
+  onFileSelected(event: any) {
+    this.imageChange = event.target.files[0];
+    this.fileName = event.target.files[0].name;
   }
 }
