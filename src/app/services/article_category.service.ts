@@ -19,4 +19,13 @@ export class ArticleCategoryService {
   getArticleCategory(id: any): Observable<any>{
     return this._http.get(this.url + 'article_category/' + id);
   }
+  update(category_id:any, article: any): Observable<any> {
+    let id = article._id;
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let params = JSON.stringify({'category_id': category_id});
+
+    return this._http.put(this.url + 'article_category/article_id/' + id, params, {
+      headers: headers,
+    });
+  }
 }

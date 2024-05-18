@@ -80,10 +80,10 @@ export class ArticleComponent implements OnInit{
           .pipe()
           .subscribe({
             next: (element: any) => {
-
+              this._router.navigate(['/admin/news']);
             },
             error: (error) => {
-              
+
             }
           });  
 

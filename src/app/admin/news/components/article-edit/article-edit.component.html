@@ -64,11 +64,16 @@
               ></textarea>
             </div>
             <div class="col-12">
-              <div>
+              <div class=" mb-3">
                 @for(article_carrusel_item of article_carrusel_images; track article_carrusel_images){
                   <img src="{{ url + 'get-image/' + article_carrusel_item['name'] }}" alt="">
                 }
               </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <input type="file" class="form-control mb-3" id="file" name="file" (change)="onFileSelected($event)" #fileUpload>
             </div>
           </div>
           <div class="col-12">

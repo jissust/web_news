@@ -26,6 +26,8 @@ export class ArticleEditComponent implements OnInit{
   public categorySelected!: string;
   public url!: string;
   public article_carrusel_images!: [];
+  public imageChange!: string;
+  public fileName!: string;
 
   constructor(
     private _articleService: ArticleService,
@@ -52,7 +54,22 @@ export class ArticleEditComponent implements OnInit{
       next: (element:any) => {
         if(element.status == 'success'){
           this.article = element.art;
-          this._router.navigate(['/admin/news']);
+
+          /** Relación entre Article y Category */
+          this._articleCategoryService.update(this.categorySelected, this.article)
+          .pipe()
+          .subscribe({
+            next: (element:any) => {
+              console.log(element)
+              this._router.navigate(['/admin/news']);
+            },
+            error: (error) => {
+              console.log(error)
+            }
+          })
+
+          /** Relación entre Article y Article Carrusel (relacion entre imagenes y articulos) */
+          
         }
       },
       error: (error: any) => {
@@ -124,11 +141,17 @@ export class ArticleEditComponent implements OnInit{
     .pipe()
     .subscribe({
       next: (element:any) => {
-        this.article_carrusel_images = element.res; 
+        if(element.status == 'success'){
+          this.article_carrusel_images = element.res;
+        }
       },
       error: (error) => {
         console.log(error)
       }
     })
+  }
+  onFileSelected(event: any) {
+    this.imageChange = event.target.files[0];
+    this.fileName = event.target.files[0].name;
   }
 }
