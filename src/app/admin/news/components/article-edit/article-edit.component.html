@@ -1,90 +1,124 @@
 <app-navbar />
 <section class="section_admin">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="admin_h1">
-                    <a [routerLink]="['/admin/news']" class="d-flex justify-content-center align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20">
-                            <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z"/>
-                        </svg>
-                    </a>
-                    <div>
-                        {{page_title}}
-                    </div>
-                </h1>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="admin_h1">
+          <a
+            [routerLink]="['/admin/news']"
+            class="d-flex justify-content-center align-items-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+              width="20"
+            >
+              <path
+                d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z"
+              />
+            </svg>
+          </a>
+          <div>
+            {{ page_title }}
+          </div>
+        </h1>
       </div>
-      <form #articleForm="ngForm" (ngSubmit)="onSubmit()">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <div class="form-group mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Título"
-                  name="title"
-                  #title="ngModel"
-                  [(ngModel)]="article.title"
-                />
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="form-group mb-3">
-                <select name="category" id="" class="form-control" placeholder="Categoria" #category="ngModel" [(ngModel)]="categorySelected">
-                  <option value="">Seleccionar categoria</option>
-                  @for(category of categories; track categories){
-                    <option value="{{category._id}}" [attr.selected]="categorySelected === category._id ? true:null">{{category.name}}</option>
-                  }
-                </select>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="form-group mb-3">
-                <select name="" id="" class="form-control" placeholder="Autor">
-                  <option value="">Seleccionar autor</option>
-                  <option value="">opcion 1</option>
-                  <option value="">opcion 2</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-12">
-              <textarea
-                name=""
-                id=""
-                cols="30"
-                rows="10"
-                class="form-control mb-3"
-                placeholder="Descripción"
-                name="content"
-                #content="ngModel"
-                [(ngModel)]="article.content"
-              ></textarea>
-            </div>
-            <div class="col-12">
-              <div class="mb-3 ul_list_image">
-                <ul>
-                @for(article_carrusel_item of article_carrusel_images; track article_carrusel_images){
-                  <li class="mb-3">
-                    <img src="{{ url + 'get-image/' + article_carrusel_item['name'] }}" alt="">
-                  </li>
-                }
-                </ul>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="form-group">
-                <input type="file" class="form-control mb-3" id="file" name="file" (change)="onFileSelected($event)" #fileUpload>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="form-group d-flex justify-content-end align-items-center">
-                <button type="submit" class="btn btn-primary">Editar</button>
-              </div>
-            </div>
+    </div>
+  </div>
+  <form #articleForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Título"
+              name="title"
+              #title="ngModel"
+              [(ngModel)]="article.title"
+            />
           </div>
         </div>
-      </form>
+        <div class="col-6">
+          <div class="form-group mb-3">
+            <select
+              name="category"
+              id=""
+              class="form-control"
+              placeholder="Categoria"
+              #category="ngModel"
+              [(ngModel)]="categorySelected"
+            >
+              <option value="">Seleccionar categoria</option>
+              @for(category of categories; track categories){
+              <option
+                value="{{ category._id }}"
+                [attr.selected]="
+                  categorySelected === category._id ? true : null
+                "
+              >
+                {{ category.name }}
+              </option>
+              }
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group mb-3">
+            <select name="" id="" class="form-control" placeholder="Autor">
+              <option value="">Seleccionar autor</option>
+              <option value="">opcion 1</option>
+              <option value="">opcion 2</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-12">
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+            class="form-control mb-3"
+            placeholder="Descripción"
+            name="content"
+            #content="ngModel"
+            [(ngModel)]="article.content"
+          ></textarea>
+        </div>
+        <div class="col-12">
+          <div class="mb-3 ul_list_image">
+            <ul>
+              @for(article_carrusel_item of article_carrusel_images; track
+              article_carrusel_images){
+              <li class="mb-3">
+                <img
+                  src="{{ url + 'get-image/' + article_carrusel_item['name'] }}"
+                  alt=""
+                />
+              </li>
+              }
+            </ul>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <input
+              type="file"
+              class="form-control mb-3"
+              id="file"
+              name="file"
+              (change)="onFileSelected($event)"
+              #fileUpload
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group d-flex justify-content-end align-items-center">
+            <button type="submit" class="btn btn-primary">Editar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </section>
