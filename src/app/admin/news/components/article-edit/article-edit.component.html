@@ -64,21 +64,25 @@
               ></textarea>
             </div>
             <div class="col-12">
-              <div class=" mb-3">
+              <div class="mb-3 ul_list_image">
+                <ul>
                 @for(article_carrusel_item of article_carrusel_images; track article_carrusel_images){
-                  <img src="{{ url + 'get-image/' + article_carrusel_item['name'] }}" alt="">
+                  <li class="mb-3">
+                    <img src="{{ url + 'get-image/' + article_carrusel_item['name'] }}" alt="">
+                  </li>
                 }
+                </ul>
               </div>
             </div>
-          </div>
-          <div class="col-12">
-            <div class="form-group">
-              <input type="file" class="form-control mb-3" id="file" name="file" (change)="onFileSelected($event)" #fileUpload>
+            <div class="col-12">
+              <div class="form-group">
+                <input type="file" class="form-control mb-3" id="file" name="file" (change)="onFileSelected($event)" #fileUpload>
+              </div>
             </div>
-          </div>
-          <div class="col-12">
-            <div class="form-group d-flex justify-content-end align-items-center">
-              <button type="submit" class="btn btn-primary">Editar</button>
+            <div class="col-12">
+              <div class="form-group d-flex justify-content-end align-items-center">
+                <button type="submit" class="btn btn-primary">Editar</button>
+              </div>
             </div>
           </div>
         </div>

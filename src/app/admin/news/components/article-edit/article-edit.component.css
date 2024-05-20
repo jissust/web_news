@@ -1,0 +1,10 @@
+.ul_list_image ul{
+    padding: 0;
+}
+.ul_list_image ul li{
+    list-style: none;
+}
+.ul_list_image ul li img{
+    max-width: 200px;
+    width: 100%;
+}

@@ -48,6 +48,8 @@ export class ArticleEditComponent implements OnInit{
 
   }
   onSubmit(){
+    var formData = new FormData();
+    formData.append('file', this.imageChange);
     this._articleService.update(this.article)
     .pipe()
     .subscribe({
@@ -61,7 +63,7 @@ export class ArticleEditComponent implements OnInit{
           .subscribe({
             next: (element:any) => {
               console.log(element)
-              this._router.navigate(['/admin/news']);
+              //this._router.navigate(['/admin/news']);
             },
             error: (error) => {
               console.log(error)
@@ -69,7 +71,17 @@ export class ArticleEditComponent implements OnInit{
           })
 
           /** Relación entre Article y Article Carrusel (relacion entre imagenes y articulos) */
-          
+          this._articleCarruselService
+          .save(this.article._id, formData)
+          .pipe()
+          .subscribe({
+            next: (element: any) => {
+              this._router.navigate(['/admin/news']);
+            },
+            error: (error) => {
+
+            }
+          });  
         }
       },
       error: (error: any) => {
