@@ -1,0 +1,14 @@
+<ngx-dropzone (change)="onSelect($event)" ngx-dropzone [accept]="'image/*'" class="mb-3">
+  <ngx-dropzone-label>Subir imagenes!</ngx-dropzone-label>
+  @for(file of files; track files){
+  <ngx-dropzone-image-preview
+    [file]="file"
+    ngProjectAs="ngx-dropzone-preview"
+    [removable]="true"
+    (removed)="onRemove(file)"
+    style="background-color: #000;"
+  >
+    <!-- <ngx-dropzone-label>{{ file.name }} ({{ file.type }})</ngx-dropzone-label> -->
+  </ngx-dropzone-image-preview>
+  }
+</ngx-dropzone>

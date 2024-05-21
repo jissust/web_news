@@ -10,11 +10,12 @@ import { CategoryService } from '../../services/category.service';
 import { ArticleCategoryService } from '../../services/article_category.service';
 import { ArticleCategory } from '../../models/article_category';
 import { ArticleCarruselService } from '../../services/article_carrusel.service';
+import { ImgDropzoneJsComponent } from '../img-dropzone-js/img-dropzone-js.component';
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule],
+  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule, ImgDropzoneJsComponent],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
   providers: [ArticleService, CategoryService, ArticleCategoryService, ArticleCarruselService]
