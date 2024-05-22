@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @Component({
@@ -10,10 +10,12 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 })
 export class ImgDropzoneJsComponent {
   public files: File[] = [];
+  @Output() imagesChange = new EventEmitter<[]>(); 
 
   onSelect(event: any) {
-    console.log(event);
+    console.log(event.addedFiles);
     this.files.push(...event.addedFiles);
+    this.imagesChange.emit(event.addedFiles);
   }
 
   onRemove(event: any) {

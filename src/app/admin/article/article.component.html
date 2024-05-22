@@ -42,10 +42,16 @@
         </div>
         <div class="col-6">
           <div class="form-group mb-3">
-            <select name="category" id="" class="form-control" placeholder="Categoria" (change)="onChange($event)">
+            <select
+              name="category"
+              id=""
+              class="form-control"
+              placeholder="Categoria"
+              (change)="onChange($event)"
+            >
               <option value="">Seleccionar categoría</option>
               @for(category of categories; track categories){
-              <option value="{{category._id}}">{{category.name}}</option>
+              <option value="{{ category._id }}">{{ category.name }}</option>
               }
             </select>
           </div>
@@ -72,20 +78,21 @@
             [(ngModel)]="article.content"
           ></textarea>
         </div>
-        <div class="col-12">
+        <!--<div class="col-12">
           <div class="form-group">
             <input type="file" class="form-control mb-3" id="file" name="file" (change)="onFileSelected($event)" #fileUpload>
           </div>
+        </div>-->
+
+        <div class="col-12">
+          <div class="form-group">
+            <app-img-dropzone-js (imagesChange)="imageChange = $event" />
+          </div>
         </div>
-      </div>
-      <div class="col-12">
-        <div class="form-group">
-          <app-img-dropzone-js />
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="form-group d-flex justify-content-end align-items-center">
-          <button type="submit" class="btn btn-primary">Crear</button>
+        <div class="col-12">
+          <div class="form-group d-flex justify-content-end align-items-center">
+            <button type="submit" class="btn btn-primary">Crear</button>
+          </div>
         </div>
       </div>
     </div>

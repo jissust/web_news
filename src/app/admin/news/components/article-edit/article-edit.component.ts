@@ -10,11 +10,12 @@ import { CategoryService } from '../../../../services/category.service';
 import { ArticleCategoryService } from '../../../../services/article_category.service';
 import { Global } from '../../../../services/global';
 import { ArticleCarruselService } from '../../../../services/article_carrusel.service';
+import { ImgDropzoneJsComponent } from '../../../img-dropzone-js/img-dropzone-js.component';
 
 @Component({
   selector: 'app-article-edit',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule],
+  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule, ImgDropzoneJsComponent],
   templateUrl: './article-edit.component.html',
   styleUrl: './article-edit.component.css',
   providers: [
@@ -31,7 +32,7 @@ export class ArticleEditComponent implements OnInit {
   public categorySelected!: string;
   public url!: string;
   public article_carrusel_images!: [];
-  public imageChange!: string;
+  public imageChange: File[] = [];
   public fileName!: string;
 
   constructor(
@@ -51,7 +52,10 @@ export class ArticleEditComponent implements OnInit {
   ngOnInit(): void {}
   onSubmit() {
     var formData = new FormData();
-    formData.append('file', this.imageChange);
+    //formData.append('file', this.imageChange);
+    this.imageChange.forEach((file, index) => {
+      formData.append('file', file);
+    })
     this._articleService
       .update(this.article)
       .pipe()

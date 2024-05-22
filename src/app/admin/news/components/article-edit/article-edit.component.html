@@ -101,7 +101,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-12">
+        <!--<div class="col-12">
           <div class="form-group">
             <input
               type="file"
@@ -111,6 +111,12 @@
               (change)="onFileSelected($event)"
               #fileUpload
             />
+          </div>
+        </div>-->
+        <div class="col-12">
+          <div class="form-group">
+            <app-img-dropzone-js
+            (imagesChange)="imageChange = $event" />
           </div>
         </div>
         <div class="col-12">

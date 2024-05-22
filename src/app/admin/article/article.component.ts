@@ -26,7 +26,7 @@ export class ArticleComponent implements OnInit{
   public categories!: Category[];
   public categorySelected!: string;
   public fileName!: string;
-  public imageChange!: string;
+  public imageChange: File[] = [];
 
   ngOnInit(): void {
 
@@ -45,7 +45,9 @@ export class ArticleComponent implements OnInit{
   }
   onSubmit(){
     var formData = new FormData();
-    formData.append('file', this.imageChange);
+    this.imageChange.forEach((file, index) => {
+      formData.append('file', file);
+    })
 
     this._articleService
     .create(this.article)
@@ -74,7 +76,7 @@ export class ArticleComponent implements OnInit{
               console.log(error)
             }
           })
-
+          console.log("element")
           /** Relación entre Article y Article Carrusel (relacion entre imagenes y articulos) */
           this._articleCarruselService
           .save(articleId, formData)
@@ -82,6 +84,7 @@ export class ArticleComponent implements OnInit{
           .subscribe({
             next: (element: any) => {
               this._router.navigate(['/admin/news']);
+              console.log(element)
             },
             error: (error) => {
 
