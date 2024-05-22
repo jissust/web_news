@@ -172,4 +172,18 @@ export class ArticleEditComponent implements OnInit {
     this.imageChange = event.target.files[0];
     this.fileName = event.target.files[0].name;
   }
+  deleteImage(image: any){
+    this._articleCarruselService
+    .delete(image._id)
+    .pipe()
+    .subscribe({
+      next: (element: any) => {
+        console.log(element);
+        this._router.navigate(['/admin/news']);
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+  }
 }

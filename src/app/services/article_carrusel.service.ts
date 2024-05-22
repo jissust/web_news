@@ -19,4 +19,8 @@ export class ArticleCarruselService {
     getArticleCarrusel(articleId: any): Observable<any>{
         return this._http.get(this.url + 'article_carrusel/' + articleId);
     }
+    delete(id: any): Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.delete(this.url + 'article_carrusel/' + id, { headers: headers });
+    }
 }
