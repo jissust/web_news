@@ -1,0 +1,9 @@
+ul.list_errors {
+    padding: 0;
+}
+ul.list_errors li{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}

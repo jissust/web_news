@@ -1,4 +1,4 @@
-<ngx-dropzone (change)="onSelect($event)" ngx-dropzone [accept]="'image/*'" class="mb-3" >
+<ngx-dropzone (change)="onSelect($event)" ngx-dropzone [accept]="'image/jpeg,image/jpg,image/png'" [maxFileSize]="1048576" class="mb-3" >
   <ngx-dropzone-label>Subir imagenes!</ngx-dropzone-label>
   @for(file of files; track files){
   <ngx-dropzone-image-preview

@@ -11,11 +11,12 @@ import { ArticleCategoryService } from '../../../../services/article_category.se
 import { Global } from '../../../../services/global';
 import { ArticleCarruselService } from '../../../../services/article_carrusel.service';
 import { ImgDropzoneJsComponent } from '../../../img-dropzone-js/img-dropzone-js.component';
+import { ListErrorsComponent } from '../../../components/list-errors/list-errors.component';
 
 @Component({
   selector: 'app-article-edit',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule, ImgDropzoneJsComponent],
+  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule, ImgDropzoneJsComponent, ListErrorsComponent],
   templateUrl: './article-edit.component.html',
   styleUrl: './article-edit.component.css',
   providers: [
@@ -34,6 +35,7 @@ export class ArticleEditComponent implements OnInit {
   public article_carrusel_images!: [];
   public imageChange: File[] = [];
   public fileName!: string;
+  public getErrors: [] = [];
 
   constructor(
     private _articleService: ArticleService,

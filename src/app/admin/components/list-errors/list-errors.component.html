@@ -1,0 +1,17 @@
+@if(getErrors.length > 0){
+<ul class="list_errors">
+  @for(error of getErrors; track getErrors ){
+  <li>
+    <div>
+      @if(error['reason'] == 'type'){ Tipo de archivo no permitido:
+      {{ error["name"] }}. Solo se permiten jpg, jpeg y png. }
+      @if(error['reason'] == 'size'){ El archivo {{ error["name"] }} excede el
+      tamaño máximo permitido. Por favor, seleccione un archivo más pequeño. }
+      @if(error['reason'] != 'type' && error['reason'] != 'size'){ No se pudo
+      cargar el archivo: {{ error["name"] }}
+      }
+    </div>
+  </li>
+  }
+</ul>
+}

@@ -11,11 +11,12 @@ import { ArticleCategoryService } from '../../services/article_category.service'
 import { ArticleCategory } from '../../models/article_category';
 import { ArticleCarruselService } from '../../services/article_carrusel.service';
 import { ImgDropzoneJsComponent } from '../img-dropzone-js/img-dropzone-js.component';
+import { ListErrorsComponent } from '../components/list-errors/list-errors.component';
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule, ImgDropzoneJsComponent],
+  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule, ImgDropzoneJsComponent, ListErrorsComponent],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
   providers: [ArticleService, CategoryService, ArticleCategoryService, ArticleCarruselService]
@@ -27,9 +28,10 @@ export class ArticleComponent implements OnInit{
   public categorySelected!: string;
   public fileName!: string;
   public imageChange: File[] = [];
+  public getErrors: [] = [];
 
   ngOnInit(): void {
-
+    
   }
   constructor(
     private _articleService: ArticleService,
@@ -44,6 +46,7 @@ export class ArticleComponent implements OnInit{
     this.categorySelected = '';
   }
   onSubmit(){
+
     var formData = new FormData();
     this.imageChange.forEach((file, index) => {
       formData.append('file', file);
@@ -76,15 +79,14 @@ export class ArticleComponent implements OnInit{
               console.log(error)
             }
           })
-          console.log("element")
           /** Relación entre Article y Article Carrusel (relacion entre imagenes y articulos) */
           this._articleCarruselService
           .save(articleId, formData)
           .pipe()
           .subscribe({
             next: (element: any) => {
-              this._router.navigate(['/admin/news']);
-              console.log(element)
+              //this._router.navigate(['/admin/news']);
+              //console.log(element)
             },
             error: (error) => {
 

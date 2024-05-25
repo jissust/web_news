@@ -123,7 +123,9 @@
         <div class="col-12">
           <div class="form-group">
             <app-img-dropzone-js
-            (imagesChange)="imageChange = $event" />
+            (imagesChange)="imageChange = $event" (getErrors)="getErrors = $event" />
+            <app-list-errors
+            [getErrors]="getErrors"/>  
           </div>
         </div>
         <div class="col-12">

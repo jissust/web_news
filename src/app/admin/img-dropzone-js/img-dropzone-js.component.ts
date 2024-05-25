@@ -10,16 +10,21 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 })
 export class ImgDropzoneJsComponent {
   public files: File[] = [];
+  public error: [] = [];
+
   @Output() imagesChange = new EventEmitter<[]>(); 
+  @Output() getErrors = new EventEmitter<[]>();
 
   onSelect(event: any) {
-    console.log(event.addedFiles);
+    console.log(event.rejectedFiles);
+
     this.files.push(...event.addedFiles);
     this.imagesChange.emit(event.addedFiles);
+    this.getErrors.emit(event.rejectedFiles);
+    
   }
 
   onRemove(event: any) {
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
 }
