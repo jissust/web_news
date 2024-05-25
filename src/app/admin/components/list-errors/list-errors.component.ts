@@ -9,4 +9,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ListErrorsComponent {
   @Input() getErrors: [] = [];
+  @Input() maxFileSize: String = '5M';
+  @Input() extensions: String = 'jpg, jpeg y png';
 }

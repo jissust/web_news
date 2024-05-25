@@ -86,9 +86,15 @@
 
         <div class="col-12">
           <div class="form-group">
-            <app-img-dropzone-js (imagesChange)="imageChange = $event" (getErrors)="getErrors = $event" />
+            <app-img-dropzone-js
+              (imagesChange)="imageChange = $event"
+              (getErrors)="getErrors = $event"
+            />
             <app-list-errors
-            [getErrors]="getErrors" />
+              [extensions]="'jpg, jpeg y png'"
+              [maxFileSize]="'5M'"
+              [getErrors]="getErrors"
+            />
           </div>
         </div>
         <div class="col-12">

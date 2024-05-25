@@ -4,9 +4,9 @@
   <li>
     <div>
       @if(error['reason'] == 'type'){ Tipo de archivo no permitido:
-      {{ error["name"] }}. Solo se permiten jpg, jpeg y png. }
+      {{ error["name"] }}. Solo se permiten {{ extensions }} }
       @if(error['reason'] == 'size'){ El archivo {{ error["name"] }} excede el
-      tamaño máximo permitido. Por favor, seleccione un archivo más pequeño. }
+      tamaño máximo permitido ({{ maxFileSize }}). Por favor, seleccione un archivo más pequeño. }
       @if(error['reason'] != 'type' && error['reason'] != 'size'){ No se pudo
       cargar el archivo: {{ error["name"] }}
       }
