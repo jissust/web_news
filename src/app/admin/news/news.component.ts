@@ -4,6 +4,7 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
 import { Router, RouterModule } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
 import { HttpClientModule } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-news',
@@ -11,47 +12,56 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [SidebarComponent, NavbarComponent, RouterModule, HttpClientModule],
   templateUrl: './news.component.html',
   styleUrl: './news.component.css',
-  providers: [ArticleService]
+  providers: [ArticleService],
 })
 export class NewsComponent implements OnInit {
   public articles!: any;
   constructor(
     private _articleService: ArticleService,
-    private _router: Router,
+    private _router: Router
+  ) {
+    this.getArticles();
+  }
+  ngOnInit(): void {}
+  getArticles() {
+    this._articleService
+      .getArticles()
+      .pipe()
+      .subscribe({
+        next: (element: any) => {
+          if (element.status == 'success') {
+            this.articles = element.articles;
+          }
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+  }
+  delete(id: any) {
+    Swal.fire({
+      title: '¿Estas seguro que desea eliminar el artículo?',
 
-  ){
-    this.getArticles()
-  }
-  ngOnInit(): void {
-      
-  }
-  getArticles(){
-    this._articleService.getArticles()
-    .pipe()
-    .subscribe({
-      next: (element: any) => {
-        if(element.status == 'success'){
-          this.articles = element.articles;
-        }
-      },
-      error: (error) => {
-        console.log(error)
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._articleService
+          .delete(id)
+          .pipe()
+          .subscribe({
+            next: (element: any) => {
+              if (element.status == 'success') {
+                this.getArticles();
+                this._router.navigate(['/admin/news']);
+              }
+            },
+            error: (error) => {
+              console.log(error);
+            },
+          });
       }
-    })
-  }
-  delete(id: any){
-    this._articleService.delete(id)
-    .pipe()
-    .subscribe({
-      next: (element:any) => {
-        if (element.status == 'success') {
-          this.getArticles();
-          this._router.navigate(['/admin/news']);
-        }  
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    })
+    });
   }
 }

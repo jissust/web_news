@@ -3,6 +3,7 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
 import { CategoryService } from '../../services/category.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-category',
@@ -42,19 +43,29 @@ export class CategoryComponent implements OnInit {
       });
   }
   delete(id: any) {
-    this._categoryService
-      .delete(id)
-      .pipe()
-      .subscribe({
-        next: (element: any) => {
-          if (element.status == 'success') {
-            this.getCategories();
-            this._router.navigate(['/admin/categories']);
-          }
-        },
-        error: (error) => {
-          console.log(error);
-        },
-      });
+
+    Swal.fire({
+      title: '¿Estas seguro que desea eliminar la categoria?',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._categoryService
+        .delete(id)
+        .pipe()
+        .subscribe({
+          next: (element: any) => {
+            if (element.status == 'success') {
+              this.getCategories();
+              this._router.navigate(['/admin/categories']);
+            }
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        }); 
+      }
+    });
   }
 }
