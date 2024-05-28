@@ -46,7 +46,7 @@ export class ArticleComponent implements OnInit{
     this.categorySelected = '';
   }
   onSubmit(){
-
+    console.log(this.imageChange);
     var formData = new FormData();
     this.imageChange.forEach((file, index) => {
       formData.append('file', file);
@@ -58,7 +58,7 @@ export class ArticleComponent implements OnInit{
     .subscribe({
       next: (element:any) => {
         let categoryId = this.categorySelected;
-        if(element.status == 'success'){
+        if(element.status == 'success') {
           let articleId = element.article._id;
 
           /** Relación entre Article y Category */
@@ -73,25 +73,25 @@ export class ArticleComponent implements OnInit{
             next: (element:any) => {
               if(element.status == 'success'){
                 //this._router.navigate(['/admin/news']);
+
+                /** Relación entre Article y Article Carrusel (relacion entre imagenes y articulos) */
+                this._articleCarruselService
+                .save(articleId, formData)
+                .pipe()
+                .subscribe({
+                  next: (element: any) => {
+                    //this._router.navigate(['/admin/news']);
+                  },
+                  error: (error) => {
+                    console.log(error)
+                  }
+                });
               }
             },
             error: (error) => {
               console.log(error)
             }
           })
-          /** Relación entre Article y Article Carrusel (relacion entre imagenes y articulos) */
-          this._articleCarruselService
-          .save(articleId, formData)
-          .pipe()
-          .subscribe({
-            next: (element: any) => {
-              //this._router.navigate(['/admin/news']);
-              //console.log(element)
-            },
-            error: (error) => {
-
-            }
-          });  
 
           /** Relación entre Article y User */
         }        

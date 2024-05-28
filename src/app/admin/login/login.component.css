@@ -43,3 +43,12 @@
     padding: 20px;
     pointer-events: none;
 }
+
+/** message */
+.error_message{
+    color: red;
+    font-size: 14px;
+    text-align: start;
+    width: 100%;
+    margin-left: 5px;
+}
