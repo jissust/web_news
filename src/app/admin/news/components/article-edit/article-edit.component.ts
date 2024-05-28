@@ -12,6 +12,7 @@ import { Global } from '../../../../services/global';
 import { ArticleCarruselService } from '../../../../services/article_carrusel.service';
 import { ImgDropzoneJsComponent } from '../../../img-dropzone-js/img-dropzone-js.component';
 import { ListErrorsComponent } from '../../../components/list-errors/list-errors.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-article-edit',
@@ -175,17 +176,27 @@ export class ArticleEditComponent implements OnInit {
     this.fileName = event.target.files[0].name;
   }
   deleteImage(image: any){
-    this._articleCarruselService
-    .delete(image._id)
-    .pipe()
-    .subscribe({
-      next: (element: any) => {
-        console.log(element);
-        this._router.navigate(['/admin/news']);
-      },
-      error: (error) => {
-        console.log(error)
+
+    Swal.fire({
+      title: '¿Estas seguro que desea eliminar imagen?',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._articleCarruselService
+        .delete(image._id)
+        .pipe()
+        .subscribe({
+          next: (element: any) => {
+            console.log(element);
+            this._router.navigate(['/admin/news']);
+          },
+          error: (error) => {
+            console.log(error)
+          }
+        })  
       }
-    })
+    });
   }
 }
