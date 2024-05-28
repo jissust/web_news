@@ -13,11 +13,19 @@ import { ArticleCarruselService } from '../../../../services/article_carrusel.se
 import { ImgDropzoneJsComponent } from '../../../img-dropzone-js/img-dropzone-js.component';
 import { ListErrorsComponent } from '../../../components/list-errors/list-errors.component';
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-article-edit',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule, ImgDropzoneJsComponent, ListErrorsComponent],
+  imports: [
+    NavbarComponent,
+    FormsModule,
+    HttpClientModule,
+    RouterModule,
+    ImgDropzoneJsComponent,
+    ListErrorsComponent,
+  ],
   templateUrl: './article-edit.component.html',
   styleUrl: './article-edit.component.css',
   providers: [
@@ -44,7 +52,8 @@ export class ArticleEditComponent implements OnInit {
     private _articleCategoryService: ArticleCategoryService,
     private _articleCarruselService: ArticleCarruselService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private toastr: ToastrService
   ) {
     this.page_title = 'Editar noticia';
     this.article = new Article('', '', '', '');
@@ -58,7 +67,7 @@ export class ArticleEditComponent implements OnInit {
     //formData.append('file', this.imageChange);
     this.imageChange.forEach((file, index) => {
       formData.append('file', file);
-    })
+    });
     this._articleService
       .update(this.article)
       .pipe()
@@ -87,14 +96,21 @@ export class ArticleEditComponent implements OnInit {
               .pipe()
               .subscribe({
                 next: (element: any) => {
+                  this.toastr.success(
+                    'El artículo fue editado exitosamente.',
+                    'Artículo editado!'
+                  );
                   this._router.navigate(['/admin/news']);
                 },
-                error: (error) => {},
+                error: (error) => {
+                  this.toastr.error('No se pudo editar el artículo.', 'Error');
+                },
               });
           }
         },
         error: (error: any) => {
           console.log(error);
+          this.toastr.error('No se pudo editar el artículo.', 'Error');
         },
       });
   }
@@ -175,8 +191,7 @@ export class ArticleEditComponent implements OnInit {
     this.imageChange = event.target.files[0];
     this.fileName = event.target.files[0].name;
   }
-  deleteImage(image: any){
-
+  deleteImage(image: any) {
     Swal.fire({
       title: '¿Estas seguro que desea eliminar imagen?',
       showCancelButton: true,
@@ -185,17 +200,23 @@ export class ArticleEditComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this._articleCarruselService
-        .delete(image._id)
-        .pipe()
-        .subscribe({
-          next: (element: any) => {
-            console.log(element);
-            this._router.navigate(['/admin/news']);
-          },
-          error: (error) => {
-            console.log(error)
-          }
-        })  
+          .delete(image._id)
+          .pipe()
+          .subscribe({
+            next: (element: any) => {
+              this.getArticle();
+              this.toastr.success(
+                'Imagen eliminado exitosamente.',
+                'Imagen eliminada!'
+              );
+            },
+            error: (error) => {
+              this.toastr.error(
+                'No se pudo eliminar la imagen.',
+                'Error al eliminar imagen!'
+              );
+            },
+          });
       }
     });
   }

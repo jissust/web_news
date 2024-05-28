@@ -12,16 +12,29 @@ import { ArticleCategory } from '../../models/article_category';
 import { ArticleCarruselService } from '../../services/article_carrusel.service';
 import { ImgDropzoneJsComponent } from '../img-dropzone-js/img-dropzone-js.component';
 import { ListErrorsComponent } from '../components/list-errors/list-errors.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, HttpClientModule, RouterModule, ImgDropzoneJsComponent, ListErrorsComponent],
+  imports: [
+    NavbarComponent,
+    FormsModule,
+    HttpClientModule,
+    RouterModule,
+    ImgDropzoneJsComponent,
+    ListErrorsComponent,
+  ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
-  providers: [ArticleService, CategoryService, ArticleCategoryService, ArticleCarruselService]
+  providers: [
+    ArticleService,
+    CategoryService,
+    ArticleCategoryService,
+    ArticleCarruselService,
+  ],
 })
-export class ArticleComponent implements OnInit{
+export class ArticleComponent implements OnInit {
   public article!: Article;
   public page_title!: String;
   public categories!: Category[];
@@ -30,92 +43,104 @@ export class ArticleComponent implements OnInit{
   public imageChange: File[] = [];
   public getErrors: [] = [];
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
   constructor(
     private _articleService: ArticleService,
     private _articleCategoryService: ArticleCategoryService,
     private _categoryService: CategoryService,
     private _articleCarruselService: ArticleCarruselService,
-    private _router: Router
-  ){
+    private _router: Router,
+    private toastr: ToastrService
+  ) {
     this.page_title = 'Crear articulo';
     this.article = new Article('', '', '', '');
     this.getCategories();
     this.categorySelected = '';
   }
-  onSubmit(){
+  onSubmit() {
     console.log(this.imageChange);
     var formData = new FormData();
     this.imageChange.forEach((file, index) => {
       formData.append('file', file);
-    })
+    });
 
     this._articleService
-    .create(this.article)
-    .pipe()
-    .subscribe({
-      next: (element:any) => {
-        let categoryId = this.categorySelected;
-        if(element.status == 'success') {
-          let articleId = element.article._id;
+      .create(this.article)
+      .pipe()
+      .subscribe({
+        next: (element: any) => {
+          let categoryId = this.categorySelected;
+          if (element.status == 'success') {
+            let articleId = element.article._id;
 
-          /** Relación entre Article y Category */
-          let articleCategory = new ArticleCategory('', '', '');
-          articleCategory.article_id = articleId;
-          articleCategory.category_id = categoryId;
-          
-          this._articleCategoryService
-          .save(articleCategory)
-          .pipe()
-          .subscribe({
-            next: (element:any) => {
-              if(element.status == 'success'){
-                //this._router.navigate(['/admin/news']);
+            /** Relación entre Article y Category */
+            let articleCategory = new ArticleCategory('', '', '');
+            articleCategory.article_id = articleId;
+            articleCategory.category_id = categoryId;
 
-                /** Relación entre Article y Article Carrusel (relacion entre imagenes y articulos) */
-                this._articleCarruselService
-                .save(articleId, formData)
-                .pipe()
-                .subscribe({
-                  next: (element: any) => {
+            this._articleCategoryService
+              .save(articleCategory)
+              .pipe()
+              .subscribe({
+                next: (element: any) => {
+                  if (element.status == 'success') {
                     //this._router.navigate(['/admin/news']);
-                  },
-                  error: (error) => {
-                    console.log(error)
-                  }
-                });
-              }
-            },
-            error: (error) => {
-              console.log(error)
-            }
-          })
 
-          /** Relación entre Article y User */
-        }        
-      },
-      error: (error:any) => {
-        console.log(error);
-      }
-    });
+                    /** Relación entre Article y Article Carrusel (relacion entre imagenes y articulos) */
+                    this._articleCarruselService
+                      .save(articleId, formData)
+                      .pipe()
+                      .subscribe({
+                        next: (element: any) => {
+                          this.toastr.success(
+                            'El artículo fue creado exitosamente.',
+                            'Artículo creado!'
+                          );
+                          this._router.navigate(['/admin/news']);
+                        },
+                        error: (error) => {
+                          console.log(error);
+                          this.toastr.error(
+                            'No se pudo crear el artículo.',
+                            'Error'
+                          );
+                        },
+                      });
+                  }
+                },
+                error: (error) => {
+                  console.log(error);
+                  this.toastr.error('', 'Error');
+                },
+              });
+
+            /** Relación entre Article y User */
+          } else {
+            this.toastr.error('No se pudo crear el artículo.', 'Error');
+          }
+        },
+        error: (error: any) => {
+          console.log(error);
+          this.toastr.error('No se pudo crear el artículo.', 'Error');
+        },
+      });
   }
-  getCategories(){
-    this._categoryService.getCategories()
-    .pipe()
-    .subscribe({
-      next: (element:any) => {
-        if(element.status == 'success'){
-          this.categories = element.category;
-        }
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
+  getCategories() {
+    this._categoryService
+      .getCategories()
+      .pipe()
+      .subscribe({
+        next: (element: any) => {
+          if (element.status == 'success') {
+            this.categories = element.category;
+          }
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
-  onChange(event: any){
+  onChange(event: any) {
     /** category id */
     let categoryId = event.target.value;
     this.categorySelected = categoryId;
