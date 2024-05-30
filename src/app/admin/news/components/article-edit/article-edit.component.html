@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-  <form #articleForm="ngForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="articleForm">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -35,8 +35,7 @@
               class="form-control"
               placeholder="Título"
               name="title"
-              #title="ngModel"
-              [(ngModel)]="article.title"
+              formControlName="title"
             />
           </div>
         </div>
@@ -47,8 +46,8 @@
               id=""
               class="form-control"
               placeholder="Categoria"
-              #category="ngModel"
-              [(ngModel)]="categorySelected"
+              formControlName="category"
+              (change)="onChange($event)"
             >
               <option value="">Seleccionar categoria</option>
               @for(category of categories; track categories){
@@ -66,7 +65,7 @@
         </div>
         <div class="col-6">
           <div class="form-group mb-3">
-            <select name="" id="" class="form-control" placeholder="Autor">
+            <select name="autor" id="" class="form-control" placeholder="Autor">
               <option value="">Seleccionar autor</option>
               <option value="">opcion 1</option>
               <option value="">opcion 2</option>
@@ -82,8 +81,7 @@
             class="form-control mb-3"
             placeholder="Descripción"
             name="content"
-            #content="ngModel"
-            [(ngModel)]="article.content"
+            formControlName="content"
           ></textarea>
         </div>
         <div class="col-12">
@@ -142,7 +140,7 @@
         </div>
         <div class="col-12">
           <div class="form-group d-flex justify-content-end align-items-center">
-            <button type="submit" class="btn btn-primary">Editar</button>
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Editar</button>
           </div>
         </div>
       </div>

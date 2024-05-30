@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../../components/navbar/navbar.component';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Article } from '../../../../models/article';
 import { ArticleService } from '../../../../services/article.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,6 +25,7 @@ import { ToastrService } from 'ngx-toastr';
     RouterModule,
     ImgDropzoneJsComponent,
     ListErrorsComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './article-edit.component.html',
   styleUrl: './article-edit.component.css',
@@ -45,6 +46,8 @@ export class ArticleEditComponent implements OnInit {
   public imageChange: File[] = [];
   public fileName!: string;
   public getErrors: [] = [];
+  public articleForm: FormGroup;
+  public stateInit: boolean = true;
 
   constructor(
     private _articleService: ArticleService,
@@ -57,17 +60,34 @@ export class ArticleEditComponent implements OnInit {
   ) {
     this.page_title = 'Editar noticia';
     this.article = new Article('', '', '', '');
-    this.getArticle();
     this.getCategories();
-    this.url = Global.urlApi;
+    this.getArticle();
+    this.articleForm = new FormGroup({
+      title: new FormControl(this.article.title,Validators.required),
+      content: new FormControl(this.article.content, Validators.required),
+      category: new FormControl(this.categorySelected,Validators.required)
+    })
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.url = Global.urlApi;
+    //this.getCategories();
+    //this.getArticle();
+  }
   onSubmit() {
+
+    this.stateInit = false;
+    var form = this.articleForm;
+    this.article.title = form.value.title;
+    this.article.content = form.value.content;
+    
+    if(form.valid){
     var formData = new FormData();
     //formData.append('file', this.imageChange);
     this.imageChange.forEach((file, index) => {
       formData.append('file', file);
     });
+    console.log(this.categorySelected)
+    console.log(this.article)
     this._articleService
       .update(this.article)
       .pipe()
@@ -76,13 +96,13 @@ export class ArticleEditComponent implements OnInit {
           if (element.status == 'success') {
             this.article = element.art;
 
-            /** Relación entre Article y Category */
+            //Relación entre Article y Category
             this._articleCategoryService
               .update(this.categorySelected, this.article)
               .pipe()
               .subscribe({
                 next: (element: any) => {
-                  console.log(element);
+                  //console.log(element);
                   //this._router.navigate(['/admin/news']);
                 },
                 error: (error) => {
@@ -90,7 +110,7 @@ export class ArticleEditComponent implements OnInit {
                 },
               });
 
-            /** Relación entre Article y Article Carrusel (relacion entre imagenes y articulos) */
+            // Relación entre Article y Article Carrusel (relacion entre imagenes y articulos)
             this._articleCarruselService
               .save(this.article._id, formData)
               .pipe()
@@ -113,6 +133,9 @@ export class ArticleEditComponent implements OnInit {
           this.toastr.error('No se pudo editar el artículo.', 'Error');
         },
       });
+    }else{
+      console.log("formulario invalido")
+    }
   }
   getArticle() {
     this._route.params.pipe().subscribe({
@@ -124,9 +147,17 @@ export class ArticleEditComponent implements OnInit {
           .subscribe({
             next: (element: any) => {
               if (element.status == 'success') {
+                
                 this.article = element.article;
+                
                 this.categorySelected = '';
                 this.getArticleCategory();
+
+                /*this.articleForm = new FormGroup({
+                  title: new FormControl(this.article.title,Validators.required),
+                  category: new FormControl(this.categorySelected,Validators.required),
+                  content: new FormControl(this.article.content, Validators.required)
+                })*/
                 this.getArticleCarrusel();
               }
             },
@@ -155,7 +186,7 @@ export class ArticleEditComponent implements OnInit {
         },
       });
   }
-  getArticleCategory() {
+  getArticleCategory () {
     let id = this.article._id;
     this._articleCategoryService
       .getArticleCategory(id)
@@ -164,6 +195,12 @@ export class ArticleEditComponent implements OnInit {
         next: (element: any) => {
           if (element.status == 'success') {
             this.categorySelected = element.article.category_id;
+
+            this.articleForm = new FormGroup({
+              title: new FormControl(this.article.title,Validators.required),
+              category: new FormControl(this.categorySelected,Validators.required),
+              content: new FormControl(this.article.content, Validators.required)
+            })
           }
         },
         error: (error) => {
@@ -219,5 +256,10 @@ export class ArticleEditComponent implements OnInit {
           });
       }
     });
+  }
+  onChange(event: any) {
+    /** category id */
+    let categoryId = event.target.value;
+    this.categorySelected = categoryId;
   }
 }

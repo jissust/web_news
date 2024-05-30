@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { Article } from '../../models/article';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ArticleService } from '../../services/article.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -24,6 +24,7 @@ import { ToastrService } from 'ngx-toastr';
     RouterModule,
     ImgDropzoneJsComponent,
     ListErrorsComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
@@ -42,6 +43,8 @@ export class ArticleComponent implements OnInit {
   public fileName!: string;
   public imageChange: File[] = [];
   public getErrors: [] = [];
+  public articleForm: FormGroup;
+  public stateInit: boolean = true;
 
   ngOnInit(): void {}
   constructor(
@@ -56,16 +59,27 @@ export class ArticleComponent implements OnInit {
     this.article = new Article('', '', '', '');
     this.getCategories();
     this.categorySelected = '';
+    this.articleForm = new FormGroup({
+      title: new FormControl('',Validators.required),
+      category: new FormControl('',Validators.required),
+      content: new FormControl('', Validators.required),
+    })
+    console.log(this.articleForm)
   }
   onSubmit() {
-    console.log(this.imageChange);
+    //var form = this.articleForm;
+    this.stateInit = false;
+    var form = this.articleForm;
+
     var formData = new FormData();
     this.imageChange.forEach((file, index) => {
       formData.append('file', file);
     });
 
+    if(form.valid){
+      
     this._articleService
-      .create(this.article)
+      .create(form.value)
       .pipe()
       .subscribe({
         next: (element: any) => {
@@ -73,7 +87,7 @@ export class ArticleComponent implements OnInit {
           if (element.status == 'success') {
             let articleId = element.article._id;
 
-            /** Relación entre Article y Category */
+            // Relación entre Article y Category
             let articleCategory = new ArticleCategory('', '', '');
             articleCategory.article_id = articleId;
             articleCategory.category_id = categoryId;
@@ -84,9 +98,8 @@ export class ArticleComponent implements OnInit {
               .subscribe({
                 next: (element: any) => {
                   if (element.status == 'success') {
-                    //this._router.navigate(['/admin/news']);
 
-                    /** Relación entre Article y Article Carrusel (relacion entre imagenes y articulos) */
+                    // Relación entre Article y Article Carrusel (relacion entre imagenes y articulos)
                     this._articleCarruselService
                       .save(articleId, formData)
                       .pipe()
@@ -114,7 +127,7 @@ export class ArticleComponent implements OnInit {
                 },
               });
 
-            /** Relación entre Article y User */
+            // Relación entre Article y User
           } else {
             this.toastr.error('No se pudo crear el artículo.', 'Error');
           }
@@ -124,6 +137,10 @@ export class ArticleComponent implements OnInit {
           this.toastr.error('No se pudo crear el artículo.', 'Error');
         },
       });
+
+    }else{
+      console.log("incompleto")
+    }
   }
   getCategories() {
     this._categoryService
