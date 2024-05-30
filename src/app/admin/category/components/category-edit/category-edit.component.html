@@ -16,17 +16,24 @@
             </div>
         </div>
     </div>
-    <form action="" #categoryForm="ngForm" (ngSubmit)="onSubmit()">
+    <form action="" [formGroup]="categoryForm">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="form-group mb-3">
-                        <input type="text" class="form-control" placeholder="Nombre" name="name" #name="ngModel" [(ngModel)]="category.name">
+                        <input type="text" class="form-control" placeholder="Nombre" name="name" formControlName="name">
+                        @if(stateInit === false){
+                            @if( categoryForm.controls['name'].invalid ){
+                                <div class="error_message">
+                                  La categoria es obligatoria.
+                                </div>
+                                }
+                            }
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-3">
-                        <select name="autor" id="" class="form-control" #autor="ngModel" [(ngModel)]="category.autor">
+                        <select name="autor" id="" class="form-control" formControlName="autor" (change)="onChange($event)">
                             <option value="">Seleccionar autor</option>
                             <option value="1">opcion 1</option>
                             <option value="2">opcion 2</option>
@@ -35,7 +42,7 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group d-flex justify-content-end align-items-center">
-                    <button type="submit" class="btn btn-primary">Editar</button>
+                    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Editar</button>
                     </div>
                 </div>
             </div>

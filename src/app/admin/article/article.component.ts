@@ -64,7 +64,6 @@ export class ArticleComponent implements OnInit {
       category: new FormControl('',Validators.required),
       content: new FormControl('', Validators.required),
     })
-    console.log(this.articleForm)
   }
   onSubmit() {
     //var form = this.articleForm;
