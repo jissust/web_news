@@ -5,6 +5,7 @@ import { CategoryService } from '../../../../services/category.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category-create',
@@ -25,7 +26,8 @@ export class CategoryCreateComponent {
     private _categoryService: CategoryService,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _http: HttpClient
+    private _http: HttpClient,
+    private toastr: ToastrService
   ) {
     this.page_title = 'Crear categoria';
     this.category = new Category('', '', '');
@@ -48,11 +50,19 @@ export class CategoryCreateComponent {
       .subscribe({
         next: (element: any) => {
           if (element.status == 'success') {
+            this.toastr.success(
+              'Categoria creara exitosamente.',
+              'Categoria creada!'
+            );
             this._router.navigate(['/admin/categories'])
           }
         },
         error: (error) => {
           console.log(error);
+          this.toastr.error(
+            'No se pudo crear la categoria.',
+            'Error'
+          );
         },
       });
     }else{

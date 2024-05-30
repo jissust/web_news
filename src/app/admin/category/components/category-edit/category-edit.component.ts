@@ -5,6 +5,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Category } from '../../../../models/category';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CategoryService } from '../../../../services/category.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category-edit',
@@ -25,7 +26,8 @@ export class CategoryEditComponent implements OnInit {
     private _categoryService: CategoryService,
     private _router: Router,
     private _route: ActivatedRoute,
-    private _http: HttpClient
+    private _http: HttpClient,
+    private toastr: ToastrService
   ){
     this.page_title = 'Editar categoria';
     this.category = new Category('', '', '');
@@ -54,11 +56,19 @@ export class CategoryEditComponent implements OnInit {
     .subscribe({
       next: (element: any) => {
         if(element.status == 'success'){
+          this.toastr.success(
+            'Categoria editada exitosamente.',
+            'Categoria editada!'
+          );
           this._router.navigate(['/admin/categories'])
         }
       },
       error: (error)=>{
-        console.log(error)
+        console.log(error);
+          this.toastr.error(
+            'No se pudo editar la categoria.',
+            'Error'
+          );
       }
     })
     }else{
