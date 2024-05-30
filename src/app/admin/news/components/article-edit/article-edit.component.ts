@@ -70,8 +70,6 @@ export class ArticleEditComponent implements OnInit {
   }
   ngOnInit(): void {
     this.url = Global.urlApi;
-    //this.getCategories();
-    //this.getArticle();
   }
   onSubmit() {
 

@@ -37,6 +37,13 @@
               name="title"
               formControlName="title"
             />
+            @if(stateInit === false){
+              @if( articleForm.controls['title'].invalid ){
+              <div class="error_message">
+                El título es obligatorio.
+              </div>
+              }
+            }
           </div>
         </div>
         <div class="col-6">
@@ -61,6 +68,13 @@
               </option>
               }
             </select>
+            @if(stateInit === false){
+              @if( articleForm.controls['category'].invalid ){
+                <div class="error_message">
+                  La categoria es obligatoria.
+                </div>
+                }
+              }
           </div>
         </div>
         <div class="col-6">
@@ -73,6 +87,7 @@
           </div>
         </div>
         <div class="col-12">
+          <div class="form-group">
           <textarea
             name=""
             id=""
@@ -83,6 +98,14 @@
             name="content"
             formControlName="content"
           ></textarea>
+          @if(stateInit === false){
+            @if( articleForm.controls['content'].invalid ){
+              <div class="error_message">
+                La descripción es obligatoria.
+              </div>
+              }
+            }
+          </div>
         </div>
         <div class="col-12">
           <div class="mb-3 ul_list_image">
