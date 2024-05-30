@@ -84,8 +84,7 @@ export class ArticleEditComponent implements OnInit {
     this.imageChange.forEach((file, index) => {
       formData.append('file', file);
     });
-    console.log(this.categorySelected)
-    console.log(this.article)
+
     this._articleService
       .update(this.article)
       .pipe()

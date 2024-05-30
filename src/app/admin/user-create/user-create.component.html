@@ -1,0 +1,92 @@
+<app-navbar />
+<section class="section_admin">
+    <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="admin_h1">
+              <a
+                [routerLink]="['/admin/users']"
+                class="d-flex justify-content-center align-items-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                  width="20"
+                >
+                  <path
+                    d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z"
+                  />
+                </svg>
+              </a>
+              <div>
+                {{ page_title }}
+              </div>
+            </h1>
+          </div>
+        </div>
+    </div>
+    <div class="container">
+      <form action="" [formGroup]="userForm">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group mb-3">
+                    <input type="text" class="form-control" placeholder="Nombre" name="name" formControlName="name">
+                    @if(stateInit === false){
+                        @if( userForm.controls['name'].invalid ){
+                            <div class="error_message">
+                                El nombre es obligatorio.
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group mb-3">
+                    <input type="text" class="form-control" placeholder="Apellido" name="surname" formControlName="surname">
+                    @if(stateInit === false){
+                        @if( userForm.controls['surname'].invalid ){
+                            <div class="error_message">
+                                El apellido es obligatorio.
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group mb-3">
+                    <input type="text" class="form-control" placeholder="Email" name="email" formControlName="email">
+                    @if(stateInit === false){
+                        @if( userForm.controls['password'].invalid ){
+                        <div class="error_message">
+                            @if(userForm.controls['email'].errors?.['required']){ 
+                                El email es obligatorio. 
+                            }
+                            @if(userForm.controls['email'].errors?.['email']){ 
+                                Formato de email incorrecto. 
+                            }                            
+                        </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group mb-3">
+                    <input type="password" class="form-control" placeholder="Contraseña" name="password" formControlName="password">
+                    @if(stateInit === false){
+                        @if( userForm.controls['password'].invalid ){
+                            <div class="error_message">
+                                La Contraseña es obligatorio.
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group d-flex justify-content-end align-items-center">
+                  <button class="btn btn-primary" (click)="onSubmit()">Crear</button>
+                </div>
+              </div>
+        </div>
+      </form>
+    </div>
+</section>

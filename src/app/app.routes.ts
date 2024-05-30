@@ -9,6 +9,9 @@ import { CategoryComponent } from './admin/category/category.component';
 import { CategoryCreateComponent } from './admin/category/components/category-create/category-create.component';
 import { CategoryEditComponent } from './admin/category/components/category-edit/category-edit.component';
 import { ArticleEditComponent } from './admin/news/components/article-edit/article-edit.component';
+import { UsersComponent } from './admin/users/users.component';
+import { UserCreateComponent } from './admin/user-create/user-create.component';
+import { UserEditComponent } from './admin/user-edit/user-edit.component';
 
 export const routes: Routes = [
     {path:'', component: HomeComponent},
@@ -20,5 +23,8 @@ export const routes: Routes = [
     {path:'admin/news/edit/:id', component: ArticleEditComponent},
     {path:'admin/categories', component: CategoryComponent},
     {path:'admin/category/create', component: CategoryCreateComponent},
-    {path:'admin/category/edit/:id', component: CategoryEditComponent}
+    {path:'admin/category/edit/:id', component: CategoryEditComponent},
+    {path:'admin/users', component:UsersComponent},
+    {path:'admin/user/create', component: UserCreateComponent},
+    {path:'admin/user/edit/:id', component: UserEditComponent}
 ];
