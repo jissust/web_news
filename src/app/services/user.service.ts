@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { Global } from './global';
 
 @Injectable()
@@ -31,5 +31,8 @@ export class UserService {
     }
     getArticle(userId: any): Observable<any> {
         return this._http.get(this.url + 'user/' + userId);
+    }
+    login(formValue: any): Observable<any>{
+        return this._http.post(this.url + '/login', formValue)
     }
 }
